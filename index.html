@@ -1,0 +1,3957 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+	<title>Poker Cards</title>
+	<link rel="icon" type="image/png" href="Pic/W-icon.png"/>
+	<meta charset="UTF-8"/>
+
+<script type="text/javascript">	//	ANTI-SELECTION + SON MITRAILLETTE
+//  Fonction anti-selection 02-03-2020	(Bloque le "Ctrl A")
+
+    function ffalse()
+    {return false;}
+	
+    function ftrue()
+    {return true;}
+	
+    document.onselectstart = new Function ("return false");
+    if(window.sidebar)
+    {document.onmousedown = ffalse; ftrue;}
+
+	// ************************************************
+
+
+//	Faire un son mitraillette
+function sound(surl) {
+    document.getElementById("mySOUND").innerHTML =
+    "<audio id='Son' autoplay><source src="+surl+"></audio>";
+	var Audio = document.getElementById('Son');
+	Audio.volume = 0.14;
+    };
+var Gun = "Sound/MP5_SMG.wav";
+
+</script>
+
+<style>
+body {
+  cursor: default;
+  overflow: hidden;
+}
+.play-container {
+  margin-top: 20px;
+  margin-left: 68px;
+}
+
+
+#Stat-texte {
+  display: none;
+  position: fixed;
+  top: 33px;
+  left: 743px;
+  font-size: 18px;
+  color: black;
+  z-index:2;
+}
+
+#RESET {
+display: none;
+  font-size: 15px;
+position: fixed;
+  top: 31px;
+  left: 1160px;
+  z-index: 2;
+}
+#CLOSE {
+  font-size: 15px;
+  position: fixed;
+  top: 31px;
+  left: 1160px;
+  z-index: 2;
+}
+
+.Statistiques {
+  background-image: url("Pic/mask.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  
+  display: none;
+  position: fixed;
+  top: 20px;
+  left: 731px;
+  width: 492px;
+  height: 156px;
+  background-color: white;
+  padding: 8px;
+  box-shadow: 2px 2px 8px 2px rgba(0, 0, 0, 0.33);
+  z-index: 1;
+}
+
+
+.mini-Black, .mini-Red {
+  color: black;
+  font-size: 90px;
+  display: inline-block;
+  margin-right: 11px;
+  margin-top: 48px;
+  cursor: pointer;
+}
+.mini-Red {
+  color: #df000f;
+}
+
+
+.first {
+  display: flex;
+  flex-wrap: nowrap;
+}
+
+.logo-WINAMAX {
+  padding-top: 2px;
+  margin-left: 422px;
+}
+
+
+	/*	LES CARTES - LES SYMBOLES	*/
+.Card {margin: 4px 40px 0px 0px; cursor: pointer;}
+.symbole {margin-left: 33px;}
+
+
+/*	COULEURS A PIQUE & TREFLE	***************************** */
+.spades-container, .clubs-container {
+  font-family: Times New Roman;
+  color: black;
+  font-size: 118px;
+  display: flex;
+  flex-wrap: nowrap;
+}
+.spades-container {
+  padding-top: 4px;
+  padding-bottom: 131px;
+}
+.clubs-container {margin-bottom: 48px;}
+/* *****************************$***************************** */
+#spades-card, #clubs-card {
+  color: black;
+  display: flex;
+  flex-wrap: wrap;
+}
+#spades-card {
+  margin-top: -76px;
+  margin-bottom: 76px;
+}
+#clubs-card {margin-bottom: 18px;}
+/*	COULEURS A PIQUE & TREFLE	***************************** */
+
+
+
+/*	COULEURS A COEUR & CARREAU ***************************** */
+.hearts-container,.diamonds-container {
+  font-family: Times New Roman;
+  color: #df000f;
+  font-size: 118px;
+  margin-bottom: 48px;
+  display: flex;
+  flex-wrap: nowrap;
+}
+/* *****************************$***************************** */
+#hearts-card, #diamonds-card {
+  color: #df000f;
+  margin-bottom: 76px;
+  display: flex;
+  flex-wrap: wrap;
+}
+/*	COULEURS A COEUR & CARREAU ***************************** */
+
+
+#Symbole-PIQUE, #Symbole-COEUR, #Symbole-CARREAU, #Symbole-TREFLE {
+  width: 92px;
+  margin-left: -7px;
+  margin-bottom: -7px;
+}
+
+
+/*	LOS 4 JOKER	 ***************************** */
+.JokeRR, .JokeRR4 {
+  cursor: no-drop;
+  width: 102px;
+  border: 1px solid #888;
+  height: 147px;
+  border-radius: 3px;
+}
+.JokeRR4 {cursor: url("Pic/mitra.png") 16 16, pointer;}
+/*	LOS 4 JOKER	 ***************************** */
+
+
+
+	/*	GESTION DES FLIP CARD	*/
+.GreenColor {cursor: pointer; color: #0f8437;}
+.BlueColor {cursor: pointer; color: #07339c;}
+
+
+.flip-box {
+  background-color: transparent;
+  width: 101px;
+  height: 189px;
+  perspective: 1000px;
+}
+
+.flip-box-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.8s;
+  transform-style: preserve-3d;
+}
+
+.flipcard {
+  transform: rotateY(180deg);
+}
+
+.flip-box-front, .flip-box-back {
+  position: absolute;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+
+.flip-box-front {
+  background-color: white;
+}
+
+.flip-box-back {
+  background-color: white;
+  transform: rotateY(180deg);
+}
+
+
+.SVG_Cards {
+  width: 102px
+}
+
+.SVG_Menu {
+  margin: 0px 60px 17px 16px;
+  width: 67px;
+  cursor: pointer;
+  
+}
+
+
+
+
+
+.Back_Card {
+  width: 107px;
+}
+
+
+#LeParrain {
+  width: 170px;
+  padding-block: 3px;
+}
+
+[title~="WINAMAX"] {
+  color: #b5121b; /* Rouge wina = #b5121b; ou ???? */
+  text-align: center;
+  border: 3px solid firebrick;
+  background-color: black; /* #ffe661 gold #080468; oldlace honeydew #d7ffd7*/
+  border-radius: 36px 13px 74px 31px;
+}
+#LeParrain:title {
+  color: #b5121b; /* Rouge wina = #b5121b; ou firebrick */
+  text-align: center;
+  white-space: pre-wrap;
+}
+
+
+.Interdit18 {
+  position: absolute;
+  pointer-events: none; /* Pour ne pas interférer avec les autres éléments */
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+}
+
+.Interdit18.visible { opacity: 1; }
+
+.Mini_Cards {
+  width: 59px;
+  margin-top: 24px;
+}
+
+#myWinAmax {
+  width: 480px;
+  height: 580px;
+  border: none;
+  opacity: 0; /* Caché par défaut avec opacité */
+  transition: opacity 0.5s ease;
+}
+#myWinAmax.visible {
+  opacity: 1; /* Visible avec opacité pleine */
+}
+
+/* Style pour le div cible du défilement */
+#scrollTarget {
+  position: relative;
+  top: 1px; /* Ton idée gagnante ! */
+  visibility: hidden;
+}
+
+.ArrivalT3 {
+  /* background-color: rgba(1,1,1,0.15); */
+  cursor: url("Pic/mitra.png") 16 16, pointer;
+  position: absolute;
+  top: 2474px;
+  left: 698px;
+  z-index: 1;
+  
+  animation: mymove 8s infinite;
+  animation-timing-function: linear;
+  clip-path: polygon(80.05% 4.96%, 100.27% 1.7%, 85.58% 42.77%, 54.13% 82.81%, 23.35% 76.15%, 18.86% 45.92%, 48.81% 24.72%);
+  
+  width: max-content;  
+  padding: 7px;
+}
+@keyframes mymove {
+  from {left: 698px; top: 2474px;}
+  to {left: 237px; top: 3050px;}
+}
+#YouCoonCoin {height: 126px;}
+
+#Space {
+  position: relative;
+  top: -584px;
+  z-index: -1;
+  transition: opacity 0.7s ease;
+}
+.SpaceX {
+  background-image: url("Pic/ciel-etoiles-nuit.webp");
+  background-size: 100% 100%;
+  background-attachment: fixed;
+  width: 1080px;
+  height: 580px;
+  opacity: 1;
+}
+.SpaceZ {
+  background-image: url("Pic/ciel-etoiles-nuit.webp");
+  background-size: 100% 100%;
+  background-attachment: fixed;
+  width: 1080px;
+  height: 580px;
+  opacity: 0;
+}
+.ASclub {
+  height: 90px;
+  border-radius: 6px;
+}
+.RetourAsvert {
+  position: relative;
+  top: -683px;
+  left: 1005px;
+  width: fit-content;
+  cursor: pointer;
+}
+.CACHE100e {
+  position: absolute;
+  margin-left: 453px;
+  margin-top: 2px;
+  border: none;
+  border-radius: 28px;
+
+  width: 500px;
+  height: 135px;
+  z-index: -1;
+  
+  background: url("Pic/home_page.jpg");
+  background-size: 454px;
+  background-repeat: no-repeat;
+}
+
+</style>
+
+</head>
+<body>
+
+<div class="play-container">
+
+<div class="CACHE100e"></div>
+
+<div id="Stat-texte">
+VOTRE MAINS PLUS FLOP, TURN, RIVER.
+</div>
+
+<div id="Button-Container">
+<button id="RESET" class="RESET" onclick="RESET();" style="display:none;">RESET</button>
+</div>
+
+<div id="STATISTIQUE-BOX">
+<div id="Stat-container" class="Statistiques" ></div>
+</div>
+
+	<!-- Interdit au moins de 18 ans	
+	Saut de ligne en HTML : &#x0A;
+	Regular space : &#32;
+	non breaking space (entre deux mots) : &nbsp;
+	
+	-->
+<img class="Interdit18" src="Pic/Interdit18.png" alt="Interdit au moins de 18 ans !" />
+
+
+<div class="first">
+	<!-- COULEUR A PIQUE	-->
+	<div class="spades-container">
+		Spades<div class="symbole"><img id="Symbole-PIQUE" src="Cards/Spades.png"/></div>
+	</div>
+
+	<div class="logo-WINAMAX" id="GOP3" style="display:block;">
+	  <a href="https://www.winamax.fr/parrain?code=COBVFH" target="_blank">
+	  <img id="LeParrain" src="Pic/Winamax_Logo.svg" title="         WINAMAX &#x0A; Paris sportifs, Poker. &#x0A;  Lien de parrainage." />
+	  </a>
+
+<script type="text/javascript">		// Interdit au moins de 18 ans
+
+const WinamaxLogo = document.getElementById('LeParrain');
+const image = document.querySelector('.Interdit18');
+image.style.width = "66px";
+
+WinamaxLogo.addEventListener('mouseover', () => {
+  image.classList.add('visible');
+});
+
+WinamaxLogo.addEventListener('mouseout', () => {
+  image.classList.remove('visible');
+});
+
+WinamaxLogo.addEventListener('mousemove', (event) => {
+  image.style.position = 'absolute'
+  image.style.top = event.clientY + -33 + 'px';
+  image.style.left = event.clientX + -33 + 'px';
+});
+
+</script>
+	
+	</div>
+
+</div>
+
+
+	<!-- COULEUR A PIQUE	-->
+<div id="spades-card">
+<div class="Card" id="2s" onclick="Show2s();" title="Two of spade">
+<div class="flip-box">
+  <div class="flip-box-inner" id="Card2s" >
+    <div class="flip-box-front" >
+	<img class="SVG_Cards" src="Cards/2_of_spades.svg"/>
+	</div>
+	<div class="flip-box-back GreenColor" >
+	<img class="Back_Card" src="Cards/back_Card_Red.png"/>
+	</div>
+  </div>
+</div>
+<script type="text/javascript">
+const Card2s = document.getElementById("Card2s");
+Card2s.addEventListener("click",flip2s);
+
+function flip2s() {
+  Card2s.classList.toggle("flipcard");
+};
+</script>
+</div>
+<div class="Card" id="3s" onclick="Show3s();" title="Three of spade">
+<div class="flip-box">
+  <div class="flip-box-inner" id="Card3s" >
+    <div class="flip-box-front" >
+	<img class="SVG_Cards" src="Cards/3_of_spades.svg"/>
+	</div>
+	<div class="flip-box-back GreenColor" >
+	<img class="Back_Card" src="Cards/back_Card_Red.png"/>
+	</div>
+  </div>
+</div>
+<script type="text/javascript">
+const Card3s = document.getElementById("Card3s");
+Card3s.addEventListener("click",flip3s);
+
+function flip3s() {
+  Card3s.classList.toggle("flipcard");
+};
+</script>
+</div>
+<div class="Card" id="4s" onclick="Show4s();" title="Four of spade">
+<div class="flip-box">
+  <div class="flip-box-inner" id="Card4s" >
+    <div class="flip-box-front" >
+	<img class="SVG_Cards" src="Cards/4_of_spades.svg"/>
+	</div>
+	<div class="flip-box-back GreenColor" >
+	<img class="Back_Card" src="Cards/back_Card_Red.png"/>
+	</div>
+  </div>
+</div>
+<script type="text/javascript">
+const Card4s = document.getElementById("Card4s");
+Card4s.addEventListener("click",flip4s);
+
+function flip4s() {
+  Card4s.classList.toggle("flipcard");
+};
+</script>
+</div>
+<div class="Card" id="5s" onclick="Show5s();" title="Five of spade">
+<div class="flip-box">
+  <div class="flip-box-inner" id="Card5s" >
+    <div class="flip-box-front" >
+	<img class="SVG_Cards" src="Cards/5_of_spades.svg"/>
+	</div>
+	<div class="flip-box-back GreenColor" >
+	<img class="Back_Card" src="Cards/back_Card_Red.png"/>
+	</div>
+  </div>
+</div>
+<script type="text/javascript">
+const Card5s = document.getElementById("Card5s");
+Card5s.addEventListener("click",flip5s);
+
+function flip5s() {
+  Card5s.classList.toggle("flipcard");
+};
+</script>
+</div>
+<div class="Card" id="6s" onclick="Show6s();" title="Six of spade">
+<div class="flip-box">
+  <div class="flip-box-inner" id="Card6s" >
+    <div class="flip-box-front" >
+	<img class="SVG_Cards" src="Cards/6_of_spades.svg"/>
+	</div>
+	<div class="flip-box-back GreenColor" >
+	<img class="Back_Card" src="Cards/back_Card_Red.png"/>
+	</div>
+  </div>
+</div>
+<script type="text/javascript">
+const Card6s = document.getElementById("Card6s");
+Card6s.addEventListener("click",flip6s);
+
+function flip6s() {
+  Card6s.classList.toggle("flipcard");
+};
+</script>
+</div>
+<div class="Card" id="7s" onclick="Show7s();" title="Seven of spade">
+<div class="flip-box">
+  <div class="flip-box-inner" id="Card7s" >
+    <div class="flip-box-front" >
+	<img class="SVG_Cards" src="Cards/7_of_spades.svg"/>
+	</div>
+	<div class="flip-box-back GreenColor" >
+	<img class="Back_Card" src="Cards/back_Card_Red.png"/>
+	</div>
+  </div>
+</div>
+<script type="text/javascript">
+const Card7s = document.getElementById("Card7s");
+Card7s.addEventListener("click",flip7s);
+
+function flip7s() {
+  Card7s.classList.toggle("flipcard");
+};
+</script>
+</div>
+<div class="Card" id="8s" onclick="Show8s();" title="Eight of spade">
+<div class="flip-box">
+  <div class="flip-box-inner" id="Card8s" >
+    <div class="flip-box-front" >
+	<img class="SVG_Cards" src="Cards/8_of_spades.svg"/>
+	</div>
+	<div class="flip-box-back GreenColor" >
+	<img class="Back_Card" src="Cards/back_Card_Red.png"/>
+	</div>
+  </div>
+</div>
+<script type="text/javascript">
+const Card8s = document.getElementById("Card8s");
+Card8s.addEventListener("click",flip8s);
+
+function flip8s() {
+  Card8s.classList.toggle("flipcard");
+};
+</script>
+</div>           
+<div class="Card" id="9s" onclick="Show9s();" title="Nine of spade">
+<div class="flip-box">
+  <div class="flip-box-inner" id="Card9s" >
+    <div class="flip-box-front" >
+	<img class="SVG_Cards" src="Cards/9_of_spades.svg"/>
+	</div>
+	<div class="flip-box-back GreenColor" >
+	<img class="Back_Card" src="Cards/back_Card_Red.png"/>
+	</div>
+  </div>
+</div>
+<script type="text/javascript">
+const Card9s = document.getElementById("Card9s");
+Card9s.addEventListener("click",flip9s);
+
+function flip9s() {
+  Card9s.classList.toggle("flipcard");
+};
+</script>
+</div>
+<div class="Card" id="Ts" onclick="ShowTs();" title="Ten of spade">
+<div class="flip-box">
+  <div class="flip-box-inner" id="CardTs" >
+    <div class="flip-box-front" >
+	<img class="SVG_Cards" src="Cards/10_of_spades.svg"/>
+	</div>
+	<div class="flip-box-back GreenColor" >
+	<img class="Back_Card" src="Cards/back_Card_Red.png"/>
+	</div>
+  </div>
+</div>
+<script type="text/javascript">
+const CardTs = document.getElementById("CardTs");
+CardTs.addEventListener("click",flipTs);
+
+function flipTs() {
+  CardTs.classList.toggle("flipcard");
+};
+</script>
+</div>
+<div class="Card" id="Js" onclick="ShowJs();" title="Jack of spade">
+<div class="flip-box">
+  <div class="flip-box-inner" id="CardJs" >
+    <div class="flip-box-front" >
+	<img class="SVG_Cards" src="Cards/jack_of_spades2.svg"/>
+	</div>
+	<div class="flip-box-back GreenColor" >
+	<img class="Back_Card" src="Cards/back_Card_Red.png"/>
+	</div>
+  </div>
+</div>
+<script type="text/javascript">
+const CardJs = document.getElementById("CardJs");
+CardJs.addEventListener("click",flipJs);
+
+function flipJs() {
+  CardJs.classList.toggle("flipcard");
+};
+</script>
+</div>
+<div class="Card" id="Qs" onclick="ShowQs();" title="Queen of spade">
+<div class="flip-box">
+  <div class="flip-box-inner" id="CardQs" >
+    <div class="flip-box-front" >
+	<img class="SVG_Cards" src="Cards/queen_of_spades2.svg"/>
+    </div>
+    <div class="flip-box-back GreenColor" >
+	<img class="Back_Card" src="Cards/back_Card_Red.png"/>
+    </div>
+  </div>
+</div>
+<script type="text/javascript">
+const CardQs = document.getElementById("CardQs");
+CardQs.addEventListener("click",flipQs);
+
+function flipQs() {
+  CardQs.classList.toggle("flipcard");
+};
+</script>
+</div>
+<div class="Card" id="Ks" onclick="ShowKs();" title="King of spade">
+<div class="flip-box">
+  <div class="flip-box-inner" id="CardKs" >
+    <div class="flip-box-front" >
+	<img class="SVG_Cards" src="Cards/king_of_spades2.svg"/>
+	</div>
+	<div class="flip-box-back GreenColor" >
+	<img class="Back_Card" src="Cards/back_Card_Red.png"/>
+	</div>
+  </div>
+</div>
+<script type="text/javascript">
+const CardKs = document.getElementById("CardKs");
+CardKs.addEventListener("click",flipKs);
+
+function flipKs() {
+  CardKs.classList.toggle("flipcard");
+};
+</script>
+</div>
+<div class="Card" id="As" onclick="ShowAs();" title="Ace of spade">
+<div class="flip-box">
+  <div class="flip-box-inner" id="CardAs" >
+    <div class="flip-box-front" >
+	<img class="SVG_Cards" src="Cards/ace_of_spades.svg"/>
+	</div>
+	<div class="flip-box-back GreenColor" >
+	<img class="Back_Card" src="Cards/back_Card_Red.png"/>
+	</div>
+  </div>
+</div>
+<script type="text/javascript">
+const CardAs = document.getElementById("CardAs");
+CardAs.addEventListener("click",flipAs);
+
+function flipAs() {
+  CardAs.classList.toggle("flipcard");
+};
+</script>
+
+</div>
+<div class="Card JokeRR" title="Joker Noir"><img class="SVG_Cards" src="Cards/JOKER-1.svg"/>
+</div>
+
+<div class="MENU-A">
+<img class="SVG_Menu" src="Cards/Spades.png" title="Vers les spades" onclick="ShowSpades();" />
+<br>
+<img class="SVG_Menu" src="Cards/Diamonds.png" title="Vers les diamonds" onclick="ShowDiamonds();" />
+</div>
+<div class="MENU-B">
+<img class="SVG_Menu" src="Cards/Hearts.png" title="Vers les hearts" onclick="ShowHearts();" />
+<br>
+<img class="SVG_Menu" src="Cards/Clubs.png" title="Vers les clubs" onclick="ShowClubs();"/>
+</div>
+
+</div>
+
+
+	<!-- Montrer les Spades	-->
+<script type="text/javascript">
+function Show2s() {
+
+	var GOP3 = document.getElementById("GOP3");
+	var StatContainer = document.getElementById("Stat-container");
+	var RESET = document.getElementById("RESET");
+	var StatTexte = document.getElementById("Stat-texte");
+
+
+const divWithClassExists = document.querySelectorAll(
+                            'div.Mini-2s'
+                           ).length > 0;
+
+if (divWithClassExists) {
+
+	var MiniCard = document.getElementById("Mini-2s");
+	MiniCard.parentNode.removeChild(MiniCard)
+}
+
+else {
+
+	if ( GOP3.style.display.match("block") && RESET.style.display.match("none") ) {
+	GOP3.style.display = "none";
+	StatContainer.style.display = "block";
+	StatTexte.style.display = "block";
+	RESET.style.display = "block";
+	
+	StatContainer.innerHTML += "<div class='mini-Black Mini-2s' id='Mini-2s' onclick='Show2s(); flip2s();' title='SUPPRIMER'><img class='Mini_Cards' src='Mini_Cards/2s.png'/></div>";
+	
+	var ButtonContainer = document.getElementById("Button-Container");
+	ButtonContainer.innerHTML = "<button id='RESET' class='RESET' onclick='RESET();' style='display:block;'>RESET</button>";
+	}
+	
+	else {
+	StatContainer.innerHTML += "<div class='mini-Black Mini-2s' id='Mini-2s' onclick='Show2s(); flip2s();' title='SUPPRIMER'><img class='Mini_Cards' src='Mini_Cards/2s.png'/></div>";
+
+	var ButtonContainer = document.getElementById("Button-Container");
+	ButtonContainer.innerHTML = "<button id='RESET' class='RESET' onclick='RESET();' style='display:block;'>RESET</button>";
+	}	
+}
+
+};
+
+function Show3s() {
+
+	var GOP3 = document.getElementById("GOP3");
+	var StatContainer = document.getElementById("Stat-container");
+	var RESET = document.getElementById("RESET");
+	var StatTexte = document.getElementById("Stat-texte");
+
+
+const divWithClassExists = document.querySelectorAll(
+                            'div.Mini-3s'
+                           ).length > 0;
+
+if (divWithClassExists) {
+
+	var MiniCard = document.getElementById("Mini-3s");
+	MiniCard.parentNode.removeChild(MiniCard)
+}
+
+else {
+
+	if ( GOP3.style.display.match("block") && RESET.style.display.match("none") ) {
+	GOP3.style.display = "none";
+	StatContainer.style.display = "block";
+	StatTexte.style.display = "block";
+	RESET.style.display = "block";
+	
+	StatContainer.innerHTML += "<div class='mini-Black Mini-3s' id='Mini-3s' onclick='Show3s(); flip3s();' title='SUPPRIMER'><img class='Mini_Cards' src='Mini_Cards/3s.png'/></div>";
+	
+	var ButtonContainer = document.getElementById("Button-Container");
+	ButtonContainer.innerHTML = "<button id='RESET' class='RESET' onclick='RESET();' style='display:block;'>RESET</button>";
+	}
+	
+	else {
+	StatContainer.innerHTML += "<div class='mini-Black Mini-3s' id='Mini-3s' onclick='Show3s(); flip3s();' title='SUPPRIMER'><img class='Mini_Cards' src='Mini_Cards/3s.png'/></div>";
+
+	var ButtonContainer = document.getElementById("Button-Container");
+	ButtonContainer.innerHTML = "<button id='RESET' class='RESET' onclick='RESET();' style='display:block;'>RESET</button>";
+	}	
+}
+
+};
+
+function Show4s() {
+
+	var GOP3 = document.getElementById("GOP3");
+	var StatContainer = document.getElementById("Stat-container");
+	var RESET = document.getElementById("RESET");
+	var StatTexte = document.getElementById("Stat-texte");
+
+
+const divWithClassExists = document.querySelectorAll(
+                            'div.Mini-4s'
+                           ).length > 0;
+
+if (divWithClassExists) {
+
+	var MiniCard = document.getElementById("Mini-4s");
+	MiniCard.parentNode.removeChild(MiniCard)
+}
+
+else {
+
+	if ( GOP3.style.display.match("block") && RESET.style.display.match("none") ) {
+	GOP3.style.display = "none";
+	StatContainer.style.display = "block";
+	StatTexte.style.display = "block";
+	RESET.style.display = "block";
+	
+	StatContainer.innerHTML += "<div class='mini-Black Mini-4s' id='Mini-4s' onclick='Show4s(); flip4s();' title='SUPPRIMER'><img class='Mini_Cards' src='Mini_Cards/4s.png'/></div>";
+	
+	var ButtonContainer = document.getElementById("Button-Container");
+	ButtonContainer.innerHTML = "<button id='RESET' class='RESET' onclick='RESET();' style='display:block;'>RESET</button>";
+	}
+	
+	else {
+	StatContainer.innerHTML += "<div class='mini-Black Mini-4s' id='Mini-4s' onclick='Show4s(); flip4s();' title='SUPPRIMER'><img class='Mini_Cards' src='Mini_Cards/4s.png'/></div>";
+
+	var ButtonContainer = document.getElementById("Button-Container");
+	ButtonContainer.innerHTML = "<button id='RESET' class='RESET' onclick='RESET();' style='display:block;'>RESET</button>";
+	}	
+}
+
+};
+
+function Show5s() {
+
+	var GOP3 = document.getElementById("GOP3");
+	var StatContainer = document.getElementById("Stat-container");
+	var RESET = document.getElementById("RESET");
+	var StatTexte = document.getElementById("Stat-texte");
+
+
+const divWithClassExists = document.querySelectorAll(
+                            'div.Mini-5s'
+                           ).length > 0;
+
+if (divWithClassExists) {
+
+	var MiniCard = document.getElementById("Mini-5s");
+	MiniCard.parentNode.removeChild(MiniCard)
+}
+
+else {
+
+	if ( GOP3.style.display.match("block") && RESET.style.display.match("none") ) {
+	GOP3.style.display = "none";
+	StatContainer.style.display = "block";
+	StatTexte.style.display = "block";
+	RESET.style.display = "block";
+	
+	StatContainer.innerHTML += "<div class='mini-Black Mini-5s' id='Mini-5s' onclick='Show5s(); flip5s();' title='SUPPRIMER'><img class='Mini_Cards' src='Mini_Cards/5s.png'/></div>";
+	
+	var ButtonContainer = document.getElementById("Button-Container");
+	ButtonContainer.innerHTML = "<button id='RESET' class='RESET' onclick='RESET();' style='display:block;'>RESET</button>";
+	}
+	
+	else {
+	StatContainer.innerHTML += "<div class='mini-Black Mini-5s' id='Mini-5s' onclick='Show5s(); flip5s();' title='SUPPRIMER'><img class='Mini_Cards' src='Mini_Cards/5s.png'/></div>";
+
+	var ButtonContainer = document.getElementById("Button-Container");
+	ButtonContainer.innerHTML = "<button id='RESET' class='RESET' onclick='RESET();' style='display:block;'>RESET</button>";
+	}	
+}
+
+
+};
+
+function Show6s() {
+
+	var GOP3 = document.getElementById("GOP3");
+	var StatContainer = document.getElementById("Stat-container");
+	var RESET = document.getElementById("RESET");
+	var StatTexte = document.getElementById("Stat-texte");
+
+
+const divWithClassExists = document.querySelectorAll(
+                            'div.Mini-6s'
+                           ).length > 0;
+
+if (divWithClassExists) {
+
+	var MiniCard = document.getElementById("Mini-6s");
+	MiniCard.parentNode.removeChild(MiniCard)
+}
+
+else {
+
+	if ( GOP3.style.display.match("block") && RESET.style.display.match("none") ) {
+	GOP3.style.display = "none";
+	StatContainer.style.display = "block";
+	StatTexte.style.display = "block";
+	RESET.style.display = "block";
+	
+	StatContainer.innerHTML += "<div class='mini-Black Mini-6s' id='Mini-6s' onclick='Show6s(); flip6s();' title='SUPPRIMER'><img class='Mini_Cards' src='Mini_Cards/6s.png'/></div>";
+	
+	var ButtonContainer = document.getElementById("Button-Container");
+	ButtonContainer.innerHTML = "<button id='RESET' class='RESET' onclick='RESET();' style='display:block;'>RESET</button>";
+	}
+	
+	else {
+	StatContainer.innerHTML += "<div class='mini-Black Mini-6s' id='Mini-6s' onclick='Show6s(); flip6s();' title='SUPPRIMER'><img class='Mini_Cards' src='Mini_Cards/6s.png'/></div>";
+
+	var ButtonContainer = document.getElementById("Button-Container");
+	ButtonContainer.innerHTML = "<button id='RESET' class='RESET' onclick='RESET();' style='display:block;'>RESET</button>";
+	}	
+}
+
+};
+
+function Show7s() {
+
+	var GOP3 = document.getElementById("GOP3");
+	var StatContainer = document.getElementById("Stat-container");
+	var RESET = document.getElementById("RESET");
+	var StatTexte = document.getElementById("Stat-texte");
+
+
+const divWithClassExists = document.querySelectorAll(
+                            'div.Mini-7s'
+                           ).length > 0;
+
+if (divWithClassExists) {
+
+	var MiniCard = document.getElementById("Mini-7s");
+	MiniCard.parentNode.removeChild(MiniCard)
+}
+
+else {
+
+	if ( GOP3.style.display.match("block") && RESET.style.display.match("none") ) {
+	GOP3.style.display = "none";
+	StatContainer.style.display = "block";
+	StatTexte.style.display = "block";
+	RESET.style.display = "block";
+	
+	StatContainer.innerHTML += "<div class='mini-Black Mini-7s' id='Mini-7s' onclick='Show7s(); flip7s();' title='SUPPRIMER'><img class='Mini_Cards' src='Mini_Cards/7s.png'/></div>";
+	
+	var ButtonContainer = document.getElementById("Button-Container");
+	ButtonContainer.innerHTML = "<button id='RESET' class='RESET' onclick='RESET();' style='display:block;'>RESET</button>";
+	}
+	
+	else {
+	StatContainer.innerHTML += "<div class='mini-Black Mini-7s' id='Mini-7s' onclick='Show7s(); flip7s();' title='SUPPRIMER'><img class='Mini_Cards' src='Mini_Cards/7s.png'/></div>";
+
+	var ButtonContainer = document.getElementById("Button-Container");
+	ButtonContainer.innerHTML = "<button id='RESET' class='RESET' onclick='RESET();' style='display:block;'>RESET</button>";
+	}	
+}
+
+};
+
+function Show8s() {
+
+	var GOP3 = document.getElementById("GOP3");
+	var StatContainer = document.getElementById("Stat-container");
+	var RESET = document.getElementById("RESET");
+	var StatTexte = document.getElementById("Stat-texte");
+
+
+const divWithClassExists = document.querySelectorAll(
+                            'div.Mini-8s'
+                           ).length > 0;
+
+if (divWithClassExists) {
+
+	var MiniCard = document.getElementById("Mini-8s");
+	MiniCard.parentNode.removeChild(MiniCard)
+}
+
+else {
+
+	if ( GOP3.style.display.match("block") && RESET.style.display.match("none") ) {
+	GOP3.style.display = "none";
+	StatContainer.style.display = "block";
+	StatTexte.style.display = "block";
+	RESET.style.display = "block";
+	
+	StatContainer.innerHTML += "<div class='mini-Black Mini-8s' id='Mini-8s' onclick='Show8s(); flip8s();' title='SUPPRIMER'><img class='Mini_Cards' src='Mini_Cards/8s.png'/></div>";
+	
+	var ButtonContainer = document.getElementById("Button-Container");
+	ButtonContainer.innerHTML = "<button id='RESET' class='RESET' onclick='RESET();' style='display:block;'>RESET</button>";
+	}
+	
+	else {
+	StatContainer.innerHTML += "<div class='mini-Black Mini-8s' id='Mini-8s' onclick='Show8s(); flip8s();' title='SUPPRIMER'><img class='Mini_Cards' src='Mini_Cards/8s.png'/></div>";
+
+	var ButtonContainer = document.getElementById("Button-Container");
+	ButtonContainer.innerHTML = "<button id='RESET' class='RESET' onclick='RESET();' style='display:block;'>RESET</button>";
+	}	
+}
+
+};
+
+function Show9s() {
+
+	var GOP3 = document.getElementById("GOP3");
+	var StatContainer = document.getElementById("Stat-container");
+	var RESET = document.getElementById("RESET");
+	var StatTexte = document.getElementById("Stat-texte");
+
+
+const divWithClassExists = document.querySelectorAll(
+                            'div.Mini-9s'
+                           ).length > 0;
+
+if (divWithClassExists) {
+
+	var MiniCard = document.getElementById("Mini-9s");
+	MiniCard.parentNode.removeChild(MiniCard)
+}
+
+else {
+
+	if ( GOP3.style.display.match("block") && RESET.style.display.match("none") ) {
+	GOP3.style.display = "none";
+	StatContainer.style.display = "block";
+	StatTexte.style.display = "block";
+	RESET.style.display = "block";
+	
+	StatContainer.innerHTML += "<div class='mini-Black Mini-9s' id='Mini-9s' onclick='Show9s(); flip9s();' title='SUPPRIMER'><img class='Mini_Cards' src='Mini_Cards/9s.png'/></div>";
+	
+	var ButtonContainer = document.getElementById("Button-Container");
+	ButtonContainer.innerHTML = "<button id='RESET' class='RESET' onclick='RESET();' style='display:block;'>RESET</button>";
+	}
+	
+	else {
+	StatContainer.innerHTML += "<div class='mini-Black Mini-9s' id='Mini-9s' onclick='Show9s(); flip9s();' title='SUPPRIMER'><img class='Mini_Cards' src='Mini_Cards/9s.png'/></div>";
+
+	var ButtonContainer = document.getElementById("Button-Container");
+	ButtonContainer.innerHTML = "<button id='RESET' class='RESET' onclick='RESET();' style='display:block;'>RESET</button>";
+	}	
+}
+
+
+};
+
+function ShowTs() {
+
+	var GOP3 = document.getElementById("GOP3");
+	var StatContainer = document.getElementById("Stat-container");
+	var RESET = document.getElementById("RESET");
+	var StatTexte = document.getElementById("Stat-texte");
+
+
+const divWithClassExists = document.querySelectorAll(
+                            'div.Mini-Ts'
+                           ).length > 0;
+
+if (divWithClassExists) {
+
+	var MiniCard = document.getElementById("Mini-Ts");
+	MiniCard.parentNode.removeChild(MiniCard)
+}
+
+else {
+
+	if ( GOP3.style.display.match("block") && RESET.style.display.match("none") ) {
+	GOP3.style.display = "none";
+	StatContainer.style.display = "block";
+	StatTexte.style.display = "block";
+	RESET.style.display = "block";
+	
+	StatContainer.innerHTML += "<div class='mini-Black Mini-Ts' id='Mini-Ts' onclick='ShowTs(); flipTs();' title='SUPPRIMER'><img class='Mini_Cards' src='Mini_Cards/Ts.png'/></div>";
+	
+	var ButtonContainer = document.getElementById("Button-Container");
+	ButtonContainer.innerHTML = "<button id='RESET' class='RESET' onclick='RESET();' style='display:block;'>RESET</button>";
+	}
+	
+	else {
+	StatContainer.innerHTML += "<div class='mini-Black Mini-Ts' id='Mini-Ts' onclick='ShowTs(); flipTs();' title='SUPPRIMER'><img class='Mini_Cards' src='Mini_Cards/Ts.png'/></div>";
+
+	var ButtonContainer = document.getElementById("Button-Container");
+	ButtonContainer.innerHTML = "<button id='RESET' class='RESET' onclick='RESET();' style='display:block;'>RESET</button>";
+	}
+}
+
+};
+
+function ShowJs() {
+
+	var GOP3 = document.getElementById("GOP3");
+	var StatContainer = document.getElementById("Stat-container");
+	var RESET = document.getElementById("RESET");
+	var StatTexte = document.getElementById("Stat-texte");
+
+
+const divWithClassExists = document.querySelectorAll(
+                            'div.Mini-Js'
+                           ).length > 0;
+
+if (divWithClassExists) {
+
+	var MiniCard = document.getElementById("Mini-Js");
+	MiniCard.parentNode.removeChild(MiniCard);
+}
+
+else {
+
+	if ( GOP3.style.display.match("block") && RESET.style.display.match("none") ) {
+	GOP3.style.display = "none";
+	StatContainer.style.display = "block";
+	StatTexte.style.display = "block";
+	RESET.style.display = "block";
+	
+	StatContainer.innerHTML += "<div class='mini-Black Mini-Js' id='Mini-Js' onclick='ShowJs(); flipJs();' title='SUPPRIMER'><img class='Mini_Cards' src='Mini_Cards/Js.png'/></div>";
+	
+	var ButtonContainer = document.getElementById("Button-Container");
+	ButtonContainer.innerHTML = "<button id='RESET' class='RESET' onclick='RESET();' style='display:block;'>RESET</button>";
+	}
+	
+	else {
+	StatContainer.innerHTML += "<div class='mini-Black Mini-Js' id='Mini-Js' onclick='ShowJs(); flipJs();' title='SUPPRIMER'><img class='Mini_Cards' src='Mini_Cards/Js.png'/></div>";
+
+	var ButtonContainer = document.getElementById("Button-Container");
+	ButtonContainer.innerHTML = "<button id='RESET' class='RESET' onclick='RESET();' style='display:block;'>RESET</button>";
+	}	
+}
+
+};
+
+function ShowQs() {
+
+	var GOP3 = document.getElementById("GOP3");
+	var StatContainer = document.getElementById("Stat-container");
+	var RESET = document.getElementById("RESET");
+	var StatTexte = document.getElementById("Stat-texte");
+
+
+const divWithClassExists = document.querySelectorAll(
+                            'div.Mini-Qs'
+                           ).length > 0;
+
+if (divWithClassExists) {
+
+	var MiniCard = document.getElementById("Mini-Qs");
+	MiniCard.parentNode.removeChild(MiniCard);
+}
+
+else {
+
+	if ( GOP3.style.display.match("block") && RESET.style.display.match("none") ) {
+	GOP3.style.display = "none";
+	StatContainer.style.display = "block";
+	StatTexte.style.display = "block";
+	RESET.style.display = "block";
+	
+	StatContainer.innerHTML += "<div class='mini-Black Mini-Qs' id='Mini-Qs' onclick='ShowQs(); flipQs();' title='SUPPRIMER'><img class='Mini_Cards' src='Mini_Cards/Qs.png'/></div>";
+	
+	var ButtonContainer = document.getElementById("Button-Container");
+	ButtonContainer.innerHTML = "<button id='RESET' class='RESET' onclick='RESET();' style='display:block;'>RESET</button>";
+	}
+	
+	else {
+	StatContainer.innerHTML += "<div class='mini-Black Mini-Qs' id='Mini-Qs' onclick='ShowQs(); flipQs();' title='SUPPRIMER'><img class='Mini_Cards' src='Mini_Cards/Qs.png'/></div>";
+
+	var ButtonContainer = document.getElementById("Button-Container");
+	ButtonContainer.innerHTML = "<button id='RESET' class='RESET' onclick='RESET();' style='display:block;'>RESET</button>";
+	}	
+}
+
+};
+
+function ShowKs() {
+
+	var GOP3 = document.getElementById("GOP3");
+	var StatContainer = document.getElementById("Stat-container");
+	var RESET = document.getElementById("RESET");
+	var StatTexte = document.getElementById("Stat-texte");
+
+
+const divWithClassExists = document.querySelectorAll(
+                            'div.Mini-Ks'
+                           ).length > 0;
+
+if (divWithClassExists) {
+
+	var MiniCard = document.getElementById("Mini-Ks");
+	MiniCard.parentNode.removeChild(MiniCard);
+}
+
+else {
+
+	if ( GOP3.style.display.match("block") && RESET.style.display.match("none") ) {
+	GOP3.style.display = "none";
+	StatContainer.style.display = "block";
+	StatTexte.style.display = "block";
+	RESET.style.display = "block";
+	
+	StatContainer.innerHTML += "<div class='mini-Black Mini-Ks' id='Mini-Ks' onclick='ShowKs(); flipKs();' title='SUPPRIMER'><img class='Mini_Cards' src='Mini_Cards/Ks.png'/></div>";
+	
+	var ButtonContainer = document.getElementById("Button-Container");
+	ButtonContainer.innerHTML = "<button id='RESET' class='RESET' onclick='RESET();' style='display:block;'>RESET</button>";
+	}
+	
+	else {
+	StatContainer.innerHTML += "<div class='mini-Black Mini-Ks' id='Mini-Ks' onclick='ShowKs(); flipKs();' title='SUPPRIMER'><img class='Mini_Cards' src='Mini_Cards/Ks.png'/></div>";
+
+	var ButtonContainer = document.getElementById("Button-Container");
+	ButtonContainer.innerHTML = "<button id='RESET' class='RESET' onclick='RESET();' style='display:block;'>RESET</button>";
+	}	
+}
+
+};
+
+function ShowAs() {
+
+	var GOP3 = document.getElementById("GOP3");
+	var StatContainer = document.getElementById("Stat-container");
+	var RESET = document.getElementById("RESET");
+	var StatTexte = document.getElementById("Stat-texte");
+
+
+const divWithClassExists = document.querySelectorAll(
+                            'div.Mini-As'
+                           ).length > 0;
+
+if (divWithClassExists) {
+
+	var MiniCard = document.getElementById("Mini-As");
+	MiniCard.parentNode.removeChild(MiniCard)
+}
+
+else {
+
+	if ( GOP3.style.display.match("block") && RESET.style.display.match("none") ) {
+	GOP3.style.display = "none";
+	StatContainer.style.display = "block";
+	StatTexte.style.display = "block";
+	RESET.style.display = "block";
+	
+	StatContainer.innerHTML += "<div class='mini-Black Mini-As' id='Mini-As' onclick='ShowAs(); flipAs();' title='SUPPRIMER'><img class='Mini_Cards' src='Mini_Cards/As.png'/></div>";
+	
+	var ButtonContainer = document.getElementById("Button-Container");
+	ButtonContainer.innerHTML = "<button id='RESET' class='RESET' onclick='RESET();' style='display:block;'>RESET</button>";
+	}
+	
+	else {
+	StatContainer.innerHTML += "<div class='mini-Black Mini-As' id='Mini-As' onclick='ShowAs(); flipAs();' title='SUPPRIMER'><img class='Mini_Cards' src='Mini_Cards/As.png'/></div>";
+
+	var ButtonContainer = document.getElementById("Button-Container");
+	ButtonContainer.innerHTML = "<button id='RESET' class='RESET' onclick='RESET();' style='display:block;'>RESET</button>";
+	}	
+}
+
+};
+
+</script>
+
+
+	<!--	RESET && CLOSE	-->
+<script type="text/javascript">
+function RESET() {
+
+/*  FlippAllCards Basé sur ce site: https://jsfiddle.net/steph_lucky13/e6LLw9mt/	*/
+
+const elements = document.querySelectorAll(".flipcard");
+	for (var i = 0; i < elements.length; i++) {
+	elements[i].classList.remove("flipcard");
+	}
+/*  END - FlippAllCards	*/
+
+
+	var StatContainer = document.getElementById("Stat-container");
+	var ButtonContainer = document.getElementById("Button-Container");
+	
+	StatContainer.innerHTML = "";
+	
+	const buttonWithClassExists = document.querySelectorAll(
+                            'button.RESET'
+                           ).length > 0;
+
+if (buttonWithClassExists) {
+
+	var RESET = document.getElementById("RESET");
+	RESET.parentNode.removeChild(RESET);
+	
+	ButtonContainer.innerHTML = "<button id='CLOSE' class='CLOSE' onclick='CLOSE();' style='display:block;'>CLOSE</button>";
+}
+
+};
+
+function CLOSE() {
+
+	var GOP3 = document.getElementById("GOP3");
+	var StatContainer = document.getElementById("Stat-container");
+	var StatTexte = document.getElementById("Stat-texte");
+	var ButtonContainer = document.getElementById("Button-Container");
+	
+	StatContainer.innerHTML = "";
+
+
+	GOP3.style.display = "block";
+	StatContainer.style.display = "none";
+	StatTexte.style.display = "none";
+
+	const buttonWithClassExists = document.querySelectorAll(
+                            'button.CLOSE'
+                           ).length > 0;
+
+if (buttonWithClassExists) {
+
+	var CLOSE = document.getElementById("CLOSE");
+	CLOSE.parentNode.removeChild(CLOSE);
+	
+	ButtonContainer.innerHTML = "<button id='RESET' class='RESET' onclick='RESET();' style='display:none;'>RESET</button>";
+}
+
+};
+</script>
+
+
+<!-- *****************************************************************************	-->
+
+
+	<!-- COULEUR A COEUR	-->
+<div class="hearts-container">Hearts
+<div class="symbole"><img id="Symbole-COEUR" src="Cards/Hearts.png"/></div></div>
+<div id="hearts-card">
+<div class="Card" id="2h" onclick="Show2h();" title="Two of heart">
+<div class="flip-box">
+  <div class="flip-box-inner" id="Card2h" >
+    <div class="flip-box-front" >
+	<img class="SVG_Cards" src="Cards/2_of_hearts.svg"/>
+	</div>
+	<div class="flip-box-back GreenColor" >
+	<img class="Back_Card" src="Cards/back_Card_Black.png"/>
+	</div>
+  </div>
+</div>
+<script type="text/javascript">
+const Card2h = document.getElementById("Card2h");
+Card2h.addEventListener("click",flip2h);
+
+function flip2h() {
+  Card2h.classList.toggle("flipcard");
+};
+</script>
+</div>
+<div class="Card" id="3h" onclick="Show3h();" title="Three of heart">
+<div class="flip-box">
+  <div class="flip-box-inner" id="Card3h" >
+    <div class="flip-box-front" >
+	<img class="SVG_Cards" src="Cards/3_of_hearts.svg"/>
+	</div>
+	<div class="flip-box-back GreenColor" >
+	<img class="Back_Card" src="Cards/back_Card_Black.png"/>
+	</div>
+  </div>
+</div>
+<script type="text/javascript">
+const Card3h = document.getElementById("Card3h");
+Card3h.addEventListener("click",flip3h);
+
+function flip3h() {
+  Card3h.classList.toggle("flipcard");
+};
+</script>
+</div>
+<div class="Card" id="4h" onclick="Show4h();" title="Four of heart">
+<div class="flip-box">
+  <div class="flip-box-inner" id="Card4h" >
+    <div class="flip-box-front" >
+	<img class="SVG_Cards" src="Cards/4_of_hearts.svg"/>
+	</div>
+	<div class="flip-box-back GreenColor" >
+	<img class="Back_Card" src="Cards/back_Card_Black.png"/>
+	</div>
+  </div>
+</div>
+<script type="text/javascript">
+const Card4h = document.getElementById("Card4h");
+Card4h.addEventListener("click",flip4h);
+
+function flip4h() {
+  Card4h.classList.toggle("flipcard");
+};
+</script>
+</div>
+<div class="Card" id="5h" onclick="Show5h();" title="Five of heart">
+<div class="flip-box">
+  <div class="flip-box-inner" id="Card5h" >
+    <div class="flip-box-front" >
+	<img class="SVG_Cards" src="Cards/5_of_hearts.svg"/>
+	</div>
+	<div class="flip-box-back GreenColor" >
+	<img class="Back_Card" src="Cards/back_Card_Black.png"/>
+	</div>
+  </div>
+</div>
+<script type="text/javascript">
+const Card5h = document.getElementById("Card5h");
+Card5h.addEventListener("click",flip5h);
+
+function flip5h() {
+  Card5h.classList.toggle("flipcard");
+};
+</script>
+</div>
+<div class="Card" id="6h" onclick="Show6h();" title="Six of heart">
+<div class="flip-box">
+  <div class="flip-box-inner" id="Card6h" >
+    <div class="flip-box-front" >
+	<img class="SVG_Cards" src="Cards/6_of_hearts.svg"/>
+	</div>
+	<div class="flip-box-back GreenColor" >
+	<img class="Back_Card" src="Cards/back_Card_Black.png"/>
+	</div>
+  </div>
+</div>
+<script type="text/javascript">
+const Card6h = document.getElementById("Card6h");
+Card6h.addEventListener("click",flip6h);
+
+function flip6h() {
+  Card6h.classList.toggle("flipcard");
+};
+</script>
+</div>
+<div class="Card" id="7h" onclick="Show7h();" title="Seven of heart">
+<div class="flip-box">
+  <div class="flip-box-inner" id="Card7h" >
+    <div class="flip-box-front" >
+	<img class="SVG_Cards" src="Cards/7_of_hearts.svg"/>
+	</div>
+	<div class="flip-box-back GreenColor" >
+	<img class="Back_Card" src="Cards/back_Card_Black.png"/>
+	</div>
+  </div>
+</div>
+<script type="text/javascript">
+const Card7h = document.getElementById("Card7h");
+Card7h.addEventListener("click",flip7h);
+
+function flip7h() {
+  Card7h.classList.toggle("flipcard");
+};
+</script>
+</div>
+<div class="Card" id="8h" onclick="Show8h();" title="Eight of heart">
+<div class="flip-box">
+  <div class="flip-box-inner" id="Card8h" >
+    <div class="flip-box-front" >
+	<img class="SVG_Cards" src="Cards/8_of_hearts.svg"/>
+	</div>
+	<div class="flip-box-back GreenColor" >
+	<img class="Back_Card" src="Cards/back_Card_Black.png"/>
+	</div>
+  </div>
+</div>
+<script type="text/javascript">
+const Card8h = document.getElementById("Card8h");
+Card8h.addEventListener("click",flip8h);
+
+function flip8h() {
+  Card8h.classList.toggle("flipcard");
+};
+</script>
+</div>            
+<div class="Card" id="9h" onclick="Show9h();" title="Nine of heart">
+<div class="flip-box">
+  <div class="flip-box-inner" id="Card9h" >
+    <div class="flip-box-front" >
+	<img class="SVG_Cards" src="Cards/9_of_hearts.svg"/>
+	</div>
+	<div class="flip-box-back GreenColor" >
+	<img class="Back_Card" src="Cards/back_Card_Black.png"/>
+	</div>
+  </div>
+</div>
+<script type="text/javascript">
+const Card9h = document.getElementById("Card9h");
+Card9h.addEventListener("click",flip9h);
+
+function flip9h() {
+  Card9h.classList.toggle("flipcard");
+};
+</script>
+</div>
+<div class="Card" id="Th" onclick="ShowTh();" title="Ten of heart">
+<div class="flip-box">
+  <div class="flip-box-inner" id="CardTh" >
+    <div class="flip-box-front" >
+	<img class="SVG_Cards" src="Cards/10_of_hearts.svg"/>
+	</div>
+	<div class="flip-box-back GreenColor" >
+	<img class="Back_Card" src="Cards/back_Card_Black.png"/>
+	</div>
+  </div>
+</div>
+<script type="text/javascript">
+const CardTh = document.getElementById("CardTh");
+CardTh.addEventListener("click",flipTh);
+
+function flipTh() {
+  CardTh.classList.toggle("flipcard");
+};
+</script>
+</div>
+<div class="Card" id="Jh" onclick="ShowJh();" title="Jack of heart">
+<div class="flip-box">
+  <div class="flip-box-inner" id="CardJh" >
+    <div class="flip-box-front" >
+	<img class="SVG_Cards" src="Cards/jack_of_hearts2.svg"/>
+	</div>
+	<div class="flip-box-back GreenColor" >
+	<img class="Back_Card" src="Cards/back_Card_Black.png"/>
+	</div>
+  </div>
+</div>
+<script type="text/javascript">
+const CardJh = document.getElementById("CardJh");
+CardJh.addEventListener("click",flipJh);
+
+function flipJh() {
+  CardJh.classList.toggle("flipcard");
+};
+</script>
+</div>
+<div class="Card" id="Qh" onclick="ShowQh();" title="Queen of heart">
+<div class="flip-box">
+  <div class="flip-box-inner" id="CardQh" >
+    <div class="flip-box-front" >
+	<img class="SVG_Cards" src="Cards/queen_of_hearts2.svg"/>
+	</div>
+	<div class="flip-box-back GreenColor" >
+	<img class="Back_Card" src="Cards/back_Card_Black.png"/>
+	</div>
+  </div>
+</div>
+<script type="text/javascript">
+const CardQh = document.getElementById("CardQh");
+CardQh.addEventListener("click",flipQh);
+
+function flipQh() {
+  CardQh.classList.toggle("flipcard");
+};
+</script>
+</div>
+<div class="Card" id="Kh" onclick="ShowKh();" title="King of heart">
+<div class="flip-box">
+  <div class="flip-box-inner" id="CardKh" >
+    <div class="flip-box-front" >
+	<img class="SVG_Cards" src="Cards/king_of_hearts2.svg"/>
+	</div>
+	<div class="flip-box-back GreenColor" >
+	<img class="Back_Card" src="Cards/back_Card_Black.png"/>
+	</div>
+  </div>
+</div>
+<script type="text/javascript">
+const CardKh = document.getElementById("CardKh");
+CardKh.addEventListener("click",flipKh);
+
+function flipKh() {
+  CardKh.classList.toggle("flipcard");
+};
+</script>
+</div>
+<div class="Card" id="Ah" onclick="ShowAh();" title="Ace of heart">
+<div class="flip-box">
+  <div class="flip-box-inner" id="CardAh" >
+    <div class="flip-box-front" >
+	<img class="SVG_Cards" src="Cards/ace_of_hearts.svg"/>
+	</div>
+	<div class="flip-box-back GreenColor" >
+	<img class="Back_Card" src="Cards/back_Card_Black.png"/>
+	</div>
+  </div>
+</div>
+<script type="text/javascript">
+const CardAh = document.getElementById("CardAh");
+CardAh.addEventListener("click",flipAh);
+
+function flipAh() {
+  CardAh.classList.toggle("flipcard");
+};
+</script>
+</div>
+<div class="Card JokeRR" title="Joker Rouge"><img class="SVG_Cards" src="Cards/JOKER-2.svg"/>
+</div>
+
+<div class="MENU-A">
+<img class="SVG_Menu" src="Cards/Spades.png" title="Vers les spades" onclick="ShowSpades();" />
+<br>
+<img class="SVG_Menu" src="Cards/Diamonds.png" title="Vers les diamonds" onclick="ShowDiamonds();" />
+</div>
+<div class="MENU-B">
+<img class="SVG_Menu" src="Cards/Hearts.png" title="Vers les hearts" onclick="ShowHearts();" />
+<br>
+<img class="SVG_Menu" src="Cards/Clubs.png" title="Vers les clubs" onclick="ShowClubs();"/>
+</div>
+
+</div>
+
+	<!-- Montrer les COEUR	-->
+<script type="text/javascript">
+function Show2h() {
+
+	var GOP3 = document.getElementById("GOP3");
+	var StatContainer = document.getElementById("Stat-container");
+	var RESET = document.getElementById("RESET");
+	var StatTexte = document.getElementById("Stat-texte");
+
+
+const divWithClassExists = document.querySelectorAll(
+                            'div.Mini-2h'
+                           ).length > 0;
+
+if (divWithClassExists) {
+
+	var MiniCard = document.getElementById("Mini-2h");
+	MiniCard.parentNode.removeChild(MiniCard)
+}
+
+else {
+
+	if ( GOP3.style.display.match("block") && RESET.style.display.match("none") ) {
+	GOP3.style.display = "none";
+	StatContainer.style.display = "block";
+	StatTexte.style.display = "block";
+	RESET.style.display = "block";
+	
+	StatContainer.innerHTML += "<div class='mini-Red Mini-2h' id='Mini-2h' onclick='Show2h(); flip2h();' title='SUPPRIMER'><img class='Mini_Cards' src='Mini_Cards/2h.png'/></div>";
+	
+	var ButtonContainer = document.getElementById("Button-Container");
+	ButtonContainer.innerHTML = "<button id='RESET' class='RESET' onclick='RESET();' style='display:block;'>RESET</button>";
+	}
+	
+	else {
+	StatContainer.innerHTML += "<div class='mini-Red Mini-2h' id='Mini-2h' onclick='Show2h(); flip2h();' title='SUPPRIMER'><img class='Mini_Cards' src='Mini_Cards/2h.png'/></div>";
+
+	var ButtonContainer = document.getElementById("Button-Container");
+	ButtonContainer.innerHTML = "<button id='RESET' class='RESET' onclick='RESET();' style='display:block;'>RESET</button>";
+	}	
+}
+
+};
+
+function Show3h() {
+
+	var GOP3 = document.getElementById("GOP3");
+	var StatContainer = document.getElementById("Stat-container");
+	var RESET = document.getElementById("RESET");
+	var StatTexte = document.getElementById("Stat-texte");
+
+
+const divWithClassExists = document.querySelectorAll(
+                            'div.Mini-3h'
+                           ).length > 0;
+
+if (divWithClassExists) {
+
+	var MiniCard = document.getElementById("Mini-3h");
+	MiniCard.parentNode.removeChild(MiniCard)
+}
+
+else {
+
+	if ( GOP3.style.display.match("block") && RESET.style.display.match("none") ) {
+	GOP3.style.display = "none";
+	StatContainer.style.display = "block";
+	StatTexte.style.display = "block";
+	RESET.style.display = "block";
+	
+	StatContainer.innerHTML += "<div class='mini-Red Mini-3h' id='Mini-3h' onclick='Show3h(); flip3h();' title='SUPPRIMER'><img class='Mini_Cards' src='Mini_Cards/3h.png'/></div>";
+	
+	var ButtonContainer = document.getElementById("Button-Container");
+	ButtonContainer.innerHTML = "<button id='RESET' class='RESET' onclick='RESET();' style='display:block;'>RESET</button>";
+	}
+	
+	else {
+	StatContainer.innerHTML += "<div class='mini-Red Mini-3h' id='Mini-3h' onclick='Show3h(); flip3h();' title='SUPPRIMER'><img class='Mini_Cards' src='Mini_Cards/3h.png'/></div>";
+
+	var ButtonContainer = document.getElementById("Button-Container");
+	ButtonContainer.innerHTML = "<button id='RESET' class='RESET' onclick='RESET();' style='display:block;'>RESET</button>";
+	}	
+}
+
+};
+
+function Show4h() {
+
+	var GOP3 = document.getElementById("GOP3");
+	var StatContainer = document.getElementById("Stat-container");
+	var RESET = document.getElementById("RESET");
+	var StatTexte = document.getElementById("Stat-texte");
+
+
+const divWithClassExists = document.querySelectorAll(
+                            'div.Mini-4h'
+                           ).length > 0;
+
+if (divWithClassExists) {
+
+	var MiniCard = document.getElementById("Mini-4h");
+	MiniCard.parentNode.removeChild(MiniCard)
+}
+
+else {
+
+	if ( GOP3.style.display.match("block") && RESET.style.display.match("none") ) {
+	GOP3.style.display = "none";
+	StatContainer.style.display = "block";
+	StatTexte.style.display = "block";
+	RESET.style.display = "block";
+	
+	StatContainer.innerHTML += "<div class='mini-Red Mini-4h' id='Mini-4h' onclick='Show4h(); flip4h();' title='SUPPRIMER'><img class='Mini_Cards' src='Mini_Cards/4h.png'/></div>";
+	
+	var ButtonContainer = document.getElementById("Button-Container");
+	ButtonContainer.innerHTML = "<button id='RESET' class='RESET' onclick='RESET();' style='display:block;'>RESET</button>";
+	}
+	
+	else {
+	StatContainer.innerHTML += "<div class='mini-Red Mini-4h' id='Mini-4h' onclick='Show4h(); flip4h();' title='SUPPRIMER'><img class='Mini_Cards' src='Mini_Cards/4h.png'/></div>";
+
+	var ButtonContainer = document.getElementById("Button-Container");
+	ButtonContainer.innerHTML = "<button id='RESET' class='RESET' onclick='RESET();' style='display:block;'>RESET</button>";
+	}	
+}
+
+};
+
+function Show5h() {
+
+	var GOP3 = document.getElementById("GOP3");
+	var StatContainer = document.getElementById("Stat-container");
+	var RESET = document.getElementById("RESET");
+	var StatTexte = document.getElementById("Stat-texte");
+
+
+const divWithClassExists = document.querySelectorAll(
+                            'div.Mini-5h'
+                           ).length > 0;
+
+if (divWithClassExists) {
+
+	var MiniCard = document.getElementById("Mini-5h");
+	MiniCard.parentNode.removeChild(MiniCard)
+}
+
+else {
+
+	if ( GOP3.style.display.match("block") && RESET.style.display.match("none") ) {
+	GOP3.style.display = "none";
+	StatContainer.style.display = "block";
+	StatTexte.style.display = "block";
+	RESET.style.display = "block";
+	
+	StatContainer.innerHTML += "<div class='mini-Red Mini-5h' id='Mini-5h' onclick='Show5h(); flip5h();' title='SUPPRIMER'><img class='Mini_Cards' src='Mini_Cards/5h.png'/></div>";
+	
+	var ButtonContainer = document.getElementById("Button-Container");
+	ButtonContainer.innerHTML = "<button id='RESET' class='RESET' onclick='RESET();' style='display:block;'>RESET</button>";
+	}
+	
+	else {
+	StatContainer.innerHTML += "<div class='mini-Red Mini-5h' id='Mini-5h' onclick='Show5h(); flip5h();' title='SUPPRIMER'><img class='Mini_Cards' src='Mini_Cards/5h.png'/></div>";
+
+	var ButtonContainer = document.getElementById("Button-Container");
+	ButtonContainer.innerHTML = "<button id='RESET' class='RESET' onclick='RESET();' style='display:block;'>RESET</button>";
+	}	
+}
+
+};
+
+function Show6h() {
+
+	var GOP3 = document.getElementById("GOP3");
+	var StatContainer = document.getElementById("Stat-container");
+	var RESET = document.getElementById("RESET");
+	var StatTexte = document.getElementById("Stat-texte");
+
+
+const divWithClassExists = document.querySelectorAll(
+                            'div.Mini-6h'
+                           ).length > 0;
+
+if (divWithClassExists) {
+
+	var MiniCard = document.getElementById("Mini-6h");
+	MiniCard.parentNode.removeChild(MiniCard)
+}
+
+else {
+
+	if ( GOP3.style.display.match("block") && RESET.style.display.match("none") ) {
+	GOP3.style.display = "none";
+	StatContainer.style.display = "block";
+	StatTexte.style.display = "block";
+	RESET.style.display = "block";
+	
+	StatContainer.innerHTML += "<div class='mini-Red Mini-6h' id='Mini-6h' onclick='Show6h(); flip6h();' title='SUPPRIMER'><img class='Mini_Cards' src='Mini_Cards/6h.png'/></div>";
+	
+	var ButtonContainer = document.getElementById("Button-Container");
+	ButtonContainer.innerHTML = "<button id='RESET' class='RESET' onclick='RESET();' style='display:block;'>RESET</button>";
+	}
+	
+	else {
+	StatContainer.innerHTML += "<div class='mini-Red Mini-6h' id='Mini-6h' onclick='Show6h(); flip6h();' title='SUPPRIMER'><img class='Mini_Cards' src='Mini_Cards/6h.png'/></div>";
+
+	var ButtonContainer = document.getElementById("Button-Container");
+	ButtonContainer.innerHTML = "<button id='RESET' class='RESET' onclick='RESET();' style='display:block;'>RESET</button>";
+	}	
+}
+
+};
+
+function Show7h() {
+
+	var GOP3 = document.getElementById("GOP3");
+	var StatContainer = document.getElementById("Stat-container");
+	var RESET = document.getElementById("RESET");
+	var StatTexte = document.getElementById("Stat-texte");
+
+
+const divWithClassExists = document.querySelectorAll(
+                            'div.Mini-7h'
+                           ).length > 0;
+
+if (divWithClassExists) {
+
+	var MiniCard = document.getElementById("Mini-7h");
+	MiniCard.parentNode.removeChild(MiniCard)
+}
+
+else {
+
+	if ( GOP3.style.display.match("block") && RESET.style.display.match("none") ) {
+	GOP3.style.display = "none";
+	StatContainer.style.display = "block";
+	StatTexte.style.display = "block";
+	RESET.style.display = "block";
+	
+	StatContainer.innerHTML += "<div class='mini-Red Mini-7h' id='Mini-7h' onclick='Show7h(); flip7h();' title='SUPPRIMER'><img class='Mini_Cards' src='Mini_Cards/7h.png'/></div>";
+	
+	var ButtonContainer = document.getElementById("Button-Container");
+	ButtonContainer.innerHTML = "<button id='RESET' class='RESET' onclick='RESET();' style='display:block;'>RESET</button>";
+	}
+	
+	else {
+	StatContainer.innerHTML += "<div class='mini-Red Mini-7h' id='Mini-7h' onclick='Show7h(); flip7h();' title='SUPPRIMER'><img class='Mini_Cards' src='Mini_Cards/7h.png'/></div>";
+
+	var ButtonContainer = document.getElementById("Button-Container");
+	ButtonContainer.innerHTML = "<button id='RESET' class='RESET' onclick='RESET();' style='display:block;'>RESET</button>";
+	}
+}
+
+};
+
+function Show8h() {
+
+	var GOP3 = document.getElementById("GOP3");
+	var StatContainer = document.getElementById("Stat-container");
+	var RESET = document.getElementById("RESET");
+	var StatTexte = document.getElementById("Stat-texte");
+
+
+const divWithClassExists = document.querySelectorAll(
+                            'div.Mini-8h'
+                           ).length > 0;
+
+if (divWithClassExists) {
+
+	var MiniCard = document.getElementById("Mini-8h");
+	MiniCard.parentNode.removeChild(MiniCard)
+}
+
+else {
+
+	if ( GOP3.style.display.match("block") && RESET.style.display.match("none") ) {
+	GOP3.style.display = "none";
+	StatContainer.style.display = "block";
+	StatTexte.style.display = "block";
+	RESET.style.display = "block";
+	
+	StatContainer.innerHTML += "<div class='mini-Red Mini-8h' id='Mini-8h' onclick='Show8h(); flip8h();' title='SUPPRIMER'><img class='Mini_Cards' src='Mini_Cards/8h.png'/></div>";
+	
+	var ButtonContainer = document.getElementById("Button-Container");
+	ButtonContainer.innerHTML = "<button id='RESET' class='RESET' onclick='RESET();' style='display:block;'>RESET</button>";
+	}
+	
+	else {
+	StatContainer.innerHTML += "<div class='mini-Red Mini-8h' id='Mini-8h' onclick='Show8h(); flip8h();' title='SUPPRIMER'><img class='Mini_Cards' src='Mini_Cards/8h.png'/></div>";
+
+	var ButtonContainer = document.getElementById("Button-Container");
+	ButtonContainer.innerHTML = "<button id='RESET' class='RESET' onclick='RESET();' style='display:block;'>RESET</button>";
+	}	
+}
+
+};
+
+function Show9h() {
+
+	var GOP3 = document.getElementById("GOP3");
+	var StatContainer = document.getElementById("Stat-container");
+	var RESET = document.getElementById("RESET");
+	var StatTexte = document.getElementById("Stat-texte");
+
+
+const divWithClassExists = document.querySelectorAll(
+                            'div.Mini-9h'
+                           ).length > 0;
+
+if (divWithClassExists) {
+
+	var MiniCard = document.getElementById("Mini-9h");
+	MiniCard.parentNode.removeChild(MiniCard)
+}
+
+else {
+
+	if ( GOP3.style.display.match("block") && RESET.style.display.match("none") ) {
+	GOP3.style.display = "none";
+	StatContainer.style.display = "block";
+	StatTexte.style.display = "block";
+	RESET.style.display = "block";
+	
+	StatContainer.innerHTML += "<div class='mini-Red Mini-9h' id='Mini-9h' onclick='Show9h(); flip9h();' title='SUPPRIMER'><img class='Mini_Cards' src='Mini_Cards/9h.png'/></div>";
+	
+	var ButtonContainer = document.getElementById("Button-Container");
+	ButtonContainer.innerHTML = "<button id='RESET' class='RESET' onclick='RESET();' style='display:block;'>RESET</button>";
+	}
+	
+	else {
+	StatContainer.innerHTML += "<div class='mini-Red Mini-9h' id='Mini-9h' onclick='Show9h(); flip9h();' title='SUPPRIMER'><img class='Mini_Cards' src='Mini_Cards/9h.png'/></div>";
+
+	var ButtonContainer = document.getElementById("Button-Container");
+	ButtonContainer.innerHTML = "<button id='RESET' class='RESET' onclick='RESET();' style='display:block;'>RESET</button>";
+	}
+}
+
+};
+
+function ShowTh() {
+
+	var GOP3 = document.getElementById("GOP3");
+	var StatContainer = document.getElementById("Stat-container");
+	var RESET = document.getElementById("RESET");
+	var StatTexte = document.getElementById("Stat-texte");
+
+
+const divWithClassExists = document.querySelectorAll(
+                            'div.Mini-Th'
+                           ).length > 0;
+
+if (divWithClassExists) {
+
+	var MiniCard = document.getElementById("Mini-Th");
+	MiniCard.parentNode.removeChild(MiniCard)
+}
+
+else {
+
+	if ( GOP3.style.display.match("block") && RESET.style.display.match("none") ) {
+	GOP3.style.display = "none";
+	StatContainer.style.display = "block";
+	StatTexte.style.display = "block";
+	RESET.style.display = "block";
+	
+	StatContainer.innerHTML += "<div class='mini-Red Mini-Th' id='Mini-Th' onclick='ShowTh(); flipTh();' title='SUPPRIMER'><img class='Mini_Cards' src='Mini_Cards/Th.png'/></div>";
+	
+	var ButtonContainer = document.getElementById("Button-Container");
+	ButtonContainer.innerHTML = "<button id='RESET' class='RESET' onclick='RESET();' style='display:block;'>RESET</button>";
+	}
+	
+	else {
+	StatContainer.innerHTML += "<div class='mini-Red Mini-Th' id='Mini-Th' onclick='ShowTh(); flipTh();' title='SUPPRIMER'><img class='Mini_Cards' src='Mini_Cards/Th.png'/></div>";
+
+	var ButtonContainer = document.getElementById("Button-Container");
+	ButtonContainer.innerHTML = "<button id='RESET' class='RESET' onclick='RESET();' style='display:block;'>RESET</button>";
+	}
+}
+
+};
+
+function ShowJh() {
+
+	var GOP3 = document.getElementById("GOP3");
+	var StatContainer = document.getElementById("Stat-container");
+	var RESET = document.getElementById("RESET");
+	var StatTexte = document.getElementById("Stat-texte");
+
+
+const divWithClassExists = document.querySelectorAll(
+                            'div.Mini-Jh'
+                           ).length > 0;
+
+if (divWithClassExists) {
+
+	var MiniCard = document.getElementById("Mini-Jh");
+	MiniCard.parentNode.removeChild(MiniCard)
+}
+
+else {
+
+	if ( GOP3.style.display.match("block") && RESET.style.display.match("none") ) {
+	GOP3.style.display = "none";
+	StatContainer.style.display = "block";
+	StatTexte.style.display = "block";
+	RESET.style.display = "block";
+	
+	StatContainer.innerHTML += "<div class='mini-Red Mini-Jh' id='Mini-Jh' onclick='ShowJh(); flipJh();' title='SUPPRIMER'><img class='Mini_Cards' src='Mini_Cards/Jh.png'/></div>";
+	
+	var ButtonContainer = document.getElementById("Button-Container");
+	ButtonContainer.innerHTML = "<button id='RESET' class='RESET' onclick='RESET();' style='display:block;'>RESET</button>";
+	}
+	
+	else {
+	StatContainer.innerHTML += "<div class='mini-Red Mini-Jh' id='Mini-Jh' onclick='ShowJh(); flipJh();' title='SUPPRIMER'><img class='Mini_Cards' src='Mini_Cards/Jh.png'/></div>";
+
+	var ButtonContainer = document.getElementById("Button-Container");
+	ButtonContainer.innerHTML = "<button id='RESET' class='RESET' onclick='RESET();' style='display:block;'>RESET</button>";
+	}
+}
+
+};
+
+function ShowQh() {
+
+	var GOP3 = document.getElementById("GOP3");
+	var StatContainer = document.getElementById("Stat-container");
+	var RESET = document.getElementById("RESET");
+	var StatTexte = document.getElementById("Stat-texte");
+
+
+const divWithClassExists = document.querySelectorAll(
+                            'div.Mini-Qh'
+                           ).length > 0;
+
+if (divWithClassExists) {
+
+	var MiniCard = document.getElementById("Mini-Qh");
+	MiniCard.parentNode.removeChild(MiniCard)
+}
+
+else {
+
+	if ( GOP3.style.display.match("block") && RESET.style.display.match("none") ) {
+	GOP3.style.display = "none";
+	StatContainer.style.display = "block";
+	StatTexte.style.display = "block";
+	RESET.style.display = "block";
+	
+	StatContainer.innerHTML += "<div class='mini-Red Mini-Qh' id='Mini-Qh' onclick='ShowQh(); flipQh();' title='SUPPRIMER'><img class='Mini_Cards' src='Mini_Cards/Qh.png'/></div>";
+	
+	var ButtonContainer = document.getElementById("Button-Container");
+	ButtonContainer.innerHTML = "<button id='RESET' class='RESET' onclick='RESET();' style='display:block;'>RESET</button>";
+	}
+	
+	else {
+	StatContainer.innerHTML += "<div class='mini-Red Mini-Qh' id='Mini-Qh' onclick='ShowQh(); flipQh();' title='SUPPRIMER'><img class='Mini_Cards' src='Mini_Cards/Qh.png'/></div>";
+
+	var ButtonContainer = document.getElementById("Button-Container");
+	ButtonContainer.innerHTML = "<button id='RESET' class='RESET' onclick='RESET();' style='display:block;'>RESET</button>";
+	}
+}
+
+};
+
+function ShowKh() {
+
+	var GOP3 = document.getElementById("GOP3");
+	var StatContainer = document.getElementById("Stat-container");
+	var RESET = document.getElementById("RESET");
+	var StatTexte = document.getElementById("Stat-texte");
+
+
+const divWithClassExists = document.querySelectorAll(
+                            'div.Mini-Kh'
+                           ).length > 0;
+
+if (divWithClassExists) {
+
+	var MiniCard = document.getElementById("Mini-Kh");
+	MiniCard.parentNode.removeChild(MiniCard)
+}
+
+else {
+
+	if ( GOP3.style.display.match("block") && RESET.style.display.match("none") ) {
+	GOP3.style.display = "none";
+	StatContainer.style.display = "block";
+	StatTexte.style.display = "block";
+	RESET.style.display = "block";
+	
+	StatContainer.innerHTML += "<div class='mini-Red Mini-Kh' id='Mini-Kh' onclick='ShowKh(); flipKh();' title='SUPPRIMER'><img class='Mini_Cards' src='Mini_Cards/Kh.png'/></div>";
+	
+	var ButtonContainer = document.getElementById("Button-Container");
+	ButtonContainer.innerHTML = "<button id='RESET' class='RESET' onclick='RESET();' style='display:block;'>RESET</button>";
+	}
+	
+	else {
+	StatContainer.innerHTML += "<div class='mini-Red Mini-Kh' id='Mini-Kh' onclick='ShowKh(); flipKh();' title='SUPPRIMER'><img class='Mini_Cards' src='Mini_Cards/Kh.png'/></div>";
+
+	var ButtonContainer = document.getElementById("Button-Container");
+	ButtonContainer.innerHTML = "<button id='RESET' class='RESET' onclick='RESET();' style='display:block;'>RESET</button>";
+	}	
+}
+
+};
+
+function ShowAh() {
+
+	var GOP3 = document.getElementById("GOP3");
+	var StatContainer = document.getElementById("Stat-container");
+	var RESET = document.getElementById("RESET");
+	var StatTexte = document.getElementById("Stat-texte");
+
+
+const divWithClassExists = document.querySelectorAll(
+                            'div.Mini-Ah'
+                           ).length > 0;
+
+if (divWithClassExists) {
+
+	var MiniCard = document.getElementById("Mini-Ah");
+	MiniCard.parentNode.removeChild(MiniCard)
+}
+
+else {
+
+	if ( GOP3.style.display.match("block") && RESET.style.display.match("none") ) {
+	GOP3.style.display = "none";
+	StatContainer.style.display = "block";
+	StatTexte.style.display = "block";
+	RESET.style.display = "block";
+	
+	StatContainer.innerHTML += "<div class='mini-Red Mini-Ah' id='Mini-Ah' onclick='ShowAh(); flipAh();' title='SUPPRIMER'><img class='Mini_Cards' src='Mini_Cards/Ah.png'/></div>";
+	
+	var ButtonContainer = document.getElementById("Button-Container");
+	ButtonContainer.innerHTML = "<button id='RESET' class='RESET' onclick='RESET();' style='display:block;'>RESET</button>";
+	}
+	
+	else {
+	StatContainer.innerHTML += "<div class='mini-Red Mini-Ah' id='Mini-Ah' onclick='ShowAh(); flipAh();' title='SUPPRIMER'><img class='Mini_Cards' src='Mini_Cards/Ah.png'/></div>";
+
+	var ButtonContainer = document.getElementById("Button-Container");
+	ButtonContainer.innerHTML = "<button id='RESET' class='RESET' onclick='RESET();' style='display:block;'>RESET</button>";
+	}	
+}
+
+};
+
+</script>
+
+
+<!-- *****************************************************************************	-->
+
+
+	<!-- COULEUR A CARREAU	-->
+<div class="diamonds-container">Diamonds
+<div class="symbole"><img id="Symbole-CARREAU" src="Cards/Diamonds.png"/></div></div>
+<div id="diamonds-card">
+<div class="Card" id="2d" onclick="Show2d();" title="Two of diamond">
+<div class="flip-box">
+  <div class="flip-box-inner" id="Card2d" >
+    <div class="flip-box-front" >
+	<img class="SVG_Cards" src="Cards/2_of_diamonds.svg"/>
+	</div>
+	<div class="flip-box-back GreenColor" >
+	<img class="Back_Card" src="Cards/back_Card_Black.png"/>
+	</div>
+  </div>
+</div>
+<script type="text/javascript">
+const Card2d = document.getElementById("Card2d");
+Card2d.addEventListener("click",flip2d);
+
+function flip2d() {
+  Card2d.classList.toggle("flipcard");
+};
+</script>
+</div>
+<div class="Card" id="3d" onclick="Show3d();" title="Three of diamond">
+<div class="flip-box">
+  <div class="flip-box-inner" id="Card3d" >
+    <div class="flip-box-front" >
+	<img class="SVG_Cards" src="Cards/3_of_diamonds.svg"/>
+	</div>
+	<div class="flip-box-back GreenColor" >
+	<img class="Back_Card" src="Cards/back_Card_Black.png"/>
+	</div>
+  </div>
+</div>
+<script type="text/javascript">
+const Card3d = document.getElementById("Card3d");
+Card3d.addEventListener("click",flip3d);
+
+function flip3d() {
+  Card3d.classList.toggle("flipcard");
+};
+</script>
+</div>
+<div class="Card" id="4d" onclick="Show4d();" title="Four of diamond">
+<div class="flip-box">
+  <div class="flip-box-inner" id="Card4d" >
+    <div class="flip-box-front" >
+	<img class="SVG_Cards" src="Cards/4_of_diamonds.svg"/>
+	</div>
+	<div class="flip-box-back GreenColor" >
+	<img class="Back_Card" src="Cards/back_Card_Black.png"/>
+	</div>
+  </div>
+</div>
+<script type="text/javascript">
+const Card4d = document.getElementById("Card4d");
+Card4d.addEventListener("click",flip4d);
+
+function flip4d() {
+  Card4d.classList.toggle("flipcard");
+};
+</script>
+</div>
+<div class="Card" id="5d" onclick="Show5d();" title="Five of diamond">
+<div class="flip-box">
+  <div class="flip-box-inner" id="Card5d" >
+    <div class="flip-box-front" >
+	<img class="SVG_Cards" src="Cards/5_of_diamonds.svg"/>
+	</div>
+	<div class="flip-box-back GreenColor" >
+	<img class="Back_Card" src="Cards/back_Card_Black.png"/>
+	</div>
+  </div>
+</div>
+<script type="text/javascript">
+const Card5d = document.getElementById("Card5d");
+Card5d.addEventListener("click",flip5d);
+
+function flip5d() {
+  Card5d.classList.toggle("flipcard");
+};
+</script>
+</div>
+<div class="Card" id="6d" onclick="Show6d();" title="Six of diamond">
+<div class="flip-box">
+  <div class="flip-box-inner" id="Card6d" >
+    <div class="flip-box-front" >
+	<img class="SVG_Cards" src="Cards/6_of_diamonds.svg"/>
+	</div>
+	<div class="flip-box-back GreenColor" >
+	<img class="Back_Card" src="Cards/back_Card_Black.png"/>
+	</div>
+  </div>
+</div>
+<script type="text/javascript">
+const Card6d = document.getElementById("Card6d");
+Card6d.addEventListener("click",flip6d);
+
+function flip6d() {
+  Card6d.classList.toggle("flipcard");
+};
+</script>
+</div>             
+<div class="Card" id="7d" onclick="Show7d();" title="Seven of diamond">
+<div class="flip-box">
+  <div class="flip-box-inner" id="Card7d" >
+    <div class="flip-box-front" >
+	<img class="SVG_Cards" src="Cards/7_of_diamonds.svg"/>
+	</div>
+	<div class="flip-box-back GreenColor" >
+	<img class="Back_Card" src="Cards/back_Card_Black.png"/>
+	</div>
+  </div>
+</div>
+<script type="text/javascript">
+const Card7d = document.getElementById("Card7d");
+Card7d.addEventListener("click",flip7d);
+
+function flip7d() {
+  Card7d.classList.toggle("flipcard");
+};
+</script>
+</div>
+<div class="Card" id="8d" onclick="Show8d();" title="Eight of diamond">
+<div class="flip-box">
+  <div class="flip-box-inner" id="Card8d" >
+    <div class="flip-box-front" >
+	<img class="SVG_Cards" src="Cards/8_of_diamonds.svg"/>
+	</div>
+	<div class="flip-box-back GreenColor" >
+	<img class="Back_Card" src="Cards/back_Card_Black.png"/>
+	</div>
+  </div>
+</div>
+<script type="text/javascript">
+const Card8d = document.getElementById("Card8d");
+Card8d.addEventListener("click",flip8d);
+
+function flip8d() {
+  Card8d.classList.toggle("flipcard");
+};
+</script>
+</div>            
+<div class="Card" id="9d" onclick="Show9d();" title="Nine of diamond">
+<div class="flip-box">
+  <div class="flip-box-inner" id="Card9d" >
+    <div class="flip-box-front" >
+	<img class="SVG_Cards" src="Cards/9_of_diamonds.svg"/>
+	</div>
+	<div class="flip-box-back GreenColor" >
+	<img class="Back_Card" src="Cards/back_Card_Black.png"/>
+	</div>
+  </div>
+</div>
+<script type="text/javascript">
+const Card9d = document.getElementById("Card9d");
+Card9d.addEventListener("click",flip9d);
+
+function flip9d() {
+  Card9d.classList.toggle("flipcard");
+};
+</script>
+</div>
+<div class="Card" id="Td" onclick="ShowTd();" title="Ten of diamond">
+<div class="flip-box">
+  <div class="flip-box-inner" id="CardTd" >
+    <div class="flip-box-front" >
+	<img class="SVG_Cards" src="Cards/10_of_diamonds.svg"/>
+	</div>
+	<div class="flip-box-back GreenColor" >
+	<img class="Back_Card" src="Cards/back_Card_Black.png"/>
+	</div>
+  </div>
+</div>
+<script type="text/javascript">
+const CardTd = document.getElementById("CardTd");
+CardTd.addEventListener("click",flipTd);
+
+function flipTd() {
+  CardTd.classList.toggle("flipcard");
+};
+</script>
+</div>
+<div class="Card" id="Jd" onclick="ShowJd();" title="Jack of diamond">
+<div class="flip-box">
+  <div class="flip-box-inner" id="CardJd" >
+    <div class="flip-box-front" >
+	<img class="SVG_Cards" src="Cards/jack_of_diamonds2.svg"/>
+	</div>
+	<div class="flip-box-back GreenColor" >
+	<img class="Back_Card" src="Cards/back_Card_Black.png"/>
+	</div>
+  </div>
+</div>
+<script type="text/javascript">
+const CardJd = document.getElementById("CardJd");
+CardJd.addEventListener("click",flipJd);
+
+function flipJd() {
+  CardJd.classList.toggle("flipcard");
+};
+</script>
+</div>
+<div class="Card" id="Qd" onclick="ShowQd();" title="Queen of diamond">
+<div class="flip-box">
+  <div class="flip-box-inner" id="CardQd" >
+    <div class="flip-box-front" >
+	<img class="SVG_Cards" src="Cards/queen_of_diamonds2.svg"/>
+	</div>
+	<div class="flip-box-back GreenColor" >
+	<img class="Back_Card" src="Cards/back_Card_Black.png"/>
+	</div>
+  </div>
+</div>
+<script type="text/javascript">
+const CardQd = document.getElementById("CardQd");
+CardQd.addEventListener("click",flipQd);
+
+function flipQd() {
+  CardQd.classList.toggle("flipcard");
+};
+</script>
+</div>
+<div class="Card" id="Kd" onclick="ShowKd();" title="King of diamond">
+<div class="flip-box">
+  <div class="flip-box-inner" id="CardKd" >
+    <div class="flip-box-front" >
+	<img class="SVG_Cards" src="Cards/king_of_diamonds2.svg"/>
+	</div>
+	<div class="flip-box-back GreenColor" >
+	<img class="Back_Card" src="Cards/back_Card_Black.png"/>
+	</div>
+  </div>
+</div>
+<script type="text/javascript">
+const CardKd = document.getElementById("CardKd");
+CardKd.addEventListener("click",flipKd);
+
+function flipKd() {
+  CardKd.classList.toggle("flipcard");
+};
+</script>
+</div>
+<div class="Card" id="Ad" onclick="ShowAd();" title="Ace of diamond">
+<div class="flip-box">
+  <div class="flip-box-inner" id="CardAd" >
+    <div class="flip-box-front" >
+	<img class="SVG_Cards" src="Cards/ace_of_diamonds.svg"/>
+	</div>
+	<div class="flip-box-back GreenColor" >
+	<img class="Back_Card" src="Cards/back_Card_Black.png"/>
+	</div>
+  </div>
+</div>
+<script type="text/javascript">
+const CardAd = document.getElementById("CardAd");
+CardAd.addEventListener("click",flipAd);
+
+function flipAd() {
+  CardAd.classList.toggle("flipcard");
+};
+</script>
+</div>
+<div class="Card JokeRR" title="Joker Rouge"><img class="SVG_Cards" src="Cards/JOKER-2.svg"/>
+</div>
+
+<div class="MENU-A">
+<img class="SVG_Menu" src="Cards/Spades.png" title="Vers les spades" onclick="ShowSpades();" />
+<br>
+<img class="SVG_Menu" src="Cards/Diamonds.png" title="Vers les diamonds" onclick="ShowDiamonds();" />
+</div>
+<div class="MENU-B">
+<img class="SVG_Menu" src="Cards/Hearts.png" title="Vers les hearts" onclick="ShowHearts();" />
+<br>
+<img class="SVG_Menu" src="Cards/Clubs.png" title="Vers les clubs" onclick="ShowClubs();"/>
+</div>
+
+</div>
+
+	<!-- Montrer les CARREAU	-->
+<script type="text/javascript">
+function Show2d() {
+
+	var GOP3 = document.getElementById("GOP3");
+	var StatContainer = document.getElementById("Stat-container");
+	var RESET = document.getElementById("RESET");
+	var StatTexte = document.getElementById("Stat-texte");
+
+
+const divWithClassExists = document.querySelectorAll(
+                            'div.Mini-2d'
+                           ).length > 0;
+
+if (divWithClassExists) {
+
+	var MiniCard = document.getElementById("Mini-2d");
+	MiniCard.parentNode.removeChild(MiniCard)
+}
+
+else {
+
+	if ( GOP3.style.display.match("block") && RESET.style.display.match("none") ) {
+	GOP3.style.display = "none";
+	StatContainer.style.display = "block";
+	StatTexte.style.display = "block";
+	RESET.style.display = "block";
+	
+	StatContainer.innerHTML += "<div class='mini-Red Mini-2d' id='Mini-2d' onclick='Show2d(); flip2d();' title='SUPPRIMER'><img class='Mini_Cards' src='Mini_Cards/2d.png'/></div>";
+	
+	var ButtonContainer = document.getElementById("Button-Container");
+	ButtonContainer.innerHTML = "<button id='RESET' class='RESET' onclick='RESET();' style='display:block;'>RESET</button>";
+	}
+	
+	else {
+	StatContainer.innerHTML += "<div class='mini-Red Mini-2d' id='Mini-2d' onclick='Show2d(); flip2d();' title='SUPPRIMER'><img class='Mini_Cards' src='Mini_Cards/2d.png'/></div>";
+
+	var ButtonContainer = document.getElementById("Button-Container");
+	ButtonContainer.innerHTML = "<button id='RESET' class='RESET' onclick='RESET();' style='display:block;'>RESET</button>";
+	}
+}
+
+};
+
+function Show3d() {
+
+	var GOP3 = document.getElementById("GOP3");
+	var StatContainer = document.getElementById("Stat-container");
+	var RESET = document.getElementById("RESET");
+	var StatTexte = document.getElementById("Stat-texte");
+
+
+const divWithClassExists = document.querySelectorAll(
+                            'div.Mini-3d'
+                           ).length > 0;
+
+if (divWithClassExists) {
+
+	var MiniCard = document.getElementById("Mini-3d");
+	MiniCard.parentNode.removeChild(MiniCard)
+}
+
+else {
+
+	if ( GOP3.style.display.match("block") && RESET.style.display.match("none") ) {
+	GOP3.style.display = "none";
+	StatContainer.style.display = "block";
+	StatTexte.style.display = "block";
+	RESET.style.display = "block";
+	
+	StatContainer.innerHTML += "<div class='mini-Red Mini-3d' id='Mini-3d' onclick='Show3d(); flip3d();' title='SUPPRIMER'><img class='Mini_Cards' src='Mini_Cards/3d.png'/></div>";
+	
+	var ButtonContainer = document.getElementById("Button-Container");
+	ButtonContainer.innerHTML = "<button id='RESET' class='RESET' onclick='RESET();' style='display:block;'>RESET</button>";
+	}
+	
+	else {
+	StatContainer.innerHTML += "<div class='mini-Red Mini-3d' id='Mini-3d' onclick='Show3d(); flip3d();' title='SUPPRIMER'><img class='Mini_Cards' src='Mini_Cards/3d.png'/></div>";
+
+	var ButtonContainer = document.getElementById("Button-Container");
+	ButtonContainer.innerHTML = "<button id='RESET' class='RESET' onclick='RESET();' style='display:block;'>RESET</button>";
+	}
+}
+
+};
+
+function Show4d() {
+
+	var GOP3 = document.getElementById("GOP3");
+	var StatContainer = document.getElementById("Stat-container");
+	var RESET = document.getElementById("RESET");
+	var StatTexte = document.getElementById("Stat-texte");
+
+
+const divWithClassExists = document.querySelectorAll(
+                            'div.Mini-4d'
+                           ).length > 0;
+
+if (divWithClassExists) {
+
+	var MiniCard = document.getElementById("Mini-4d");
+	MiniCard.parentNode.removeChild(MiniCard)
+}
+
+else {
+
+	if ( GOP3.style.display.match("block") && RESET.style.display.match("none") ) {
+	GOP3.style.display = "none";
+	StatContainer.style.display = "block";
+	StatTexte.style.display = "block";
+	RESET.style.display = "block";
+	
+	StatContainer.innerHTML += "<div class='mini-Red Mini-4d' id='Mini-4d' onclick='Show4d(); flip4d();' title='SUPPRIMER'><img class='Mini_Cards' src='Mini_Cards/4d.png'/></div>";
+	
+	var ButtonContainer = document.getElementById("Button-Container");
+	ButtonContainer.innerHTML = "<button id='RESET' class='RESET' onclick='RESET();' style='display:block;'>RESET</button>";
+	}
+	
+	else {
+	StatContainer.innerHTML += "<div class='mini-Red Mini-4d' id='Mini-4d' onclick='Show4d(); flip4d();' title='SUPPRIMER'><img class='Mini_Cards' src='Mini_Cards/4d.png'/></div>";
+
+	var ButtonContainer = document.getElementById("Button-Container");
+	ButtonContainer.innerHTML = "<button id='RESET' class='RESET' onclick='RESET();' style='display:block;'>RESET</button>";
+	}	
+}
+
+};
+
+function Show5d() {
+
+	var GOP3 = document.getElementById("GOP3");
+	var StatContainer = document.getElementById("Stat-container");
+	var RESET = document.getElementById("RESET");
+	var StatTexte = document.getElementById("Stat-texte");
+
+
+const divWithClassExists = document.querySelectorAll(
+                            'div.Mini-5d'
+                           ).length > 0;
+
+if (divWithClassExists) {
+
+	var MiniCard = document.getElementById("Mini-5d");
+	MiniCard.parentNode.removeChild(MiniCard)
+}
+
+else {
+
+	if ( GOP3.style.display.match("block") && RESET.style.display.match("none") ) {
+	GOP3.style.display = "none";
+	StatContainer.style.display = "block";
+	StatTexte.style.display = "block";
+	RESET.style.display = "block";
+	
+	StatContainer.innerHTML += "<div class='mini-Red Mini-5d' id='Mini-5d' onclick='Show5d(); flip5d();' title='SUPPRIMER'><img class='Mini_Cards' src='Mini_Cards/5d.png'/></div>";
+	
+	var ButtonContainer = document.getElementById("Button-Container");
+	ButtonContainer.innerHTML = "<button id='RESET' class='RESET' onclick='RESET();' style='display:block;'>RESET</button>";
+	}
+	
+	else {
+	StatContainer.innerHTML += "<div class='mini-Red Mini-5d' id='Mini-5d' onclick='Show5d(); flip5d();' title='SUPPRIMER'><img class='Mini_Cards' src='Mini_Cards/5d.png'/></div>";
+
+	var ButtonContainer = document.getElementById("Button-Container");
+	ButtonContainer.innerHTML = "<button id='RESET' class='RESET' onclick='RESET();' style='display:block;'>RESET</button>";
+	}
+}
+
+};
+
+function Show6d() {
+
+	var GOP3 = document.getElementById("GOP3");
+	var StatContainer = document.getElementById("Stat-container");
+	var RESET = document.getElementById("RESET");
+	var StatTexte = document.getElementById("Stat-texte");
+
+
+const divWithClassExists = document.querySelectorAll(
+                            'div.Mini-6d'
+                           ).length > 0;
+
+if (divWithClassExists) {
+
+	var MiniCard = document.getElementById("Mini-6d");
+	MiniCard.parentNode.removeChild(MiniCard)
+}
+
+else {
+
+	if ( GOP3.style.display.match("block") && RESET.style.display.match("none") ) {
+	GOP3.style.display = "none";
+	StatContainer.style.display = "block";
+	StatTexte.style.display = "block";
+	RESET.style.display = "block";
+	
+	StatContainer.innerHTML += "<div class='mini-Red Mini-6d' id='Mini-6d' onclick='Show6d(); flip6d();' title='SUPPRIMER'><img class='Mini_Cards' src='Mini_Cards/6d.png'/></div>";
+	
+	var ButtonContainer = document.getElementById("Button-Container");
+	ButtonContainer.innerHTML = "<button id='RESET' class='RESET' onclick='RESET();' style='display:block;'>RESET</button>";
+	}
+	
+	else {
+	StatContainer.innerHTML += "<div class='mini-Red Mini-6d' id='Mini-6d' onclick='Show6d(); flip6d();' title='SUPPRIMER'><img class='Mini_Cards' src='Mini_Cards/6d.png'/></div>";
+
+	var ButtonContainer = document.getElementById("Button-Container");
+	ButtonContainer.innerHTML = "<button id='RESET' class='RESET' onclick='RESET();' style='display:block;'>RESET</button>";
+	}
+}
+
+};
+
+function Show7d() {
+
+	var GOP3 = document.getElementById("GOP3");
+	var StatContainer = document.getElementById("Stat-container");
+	var RESET = document.getElementById("RESET");
+	var StatTexte = document.getElementById("Stat-texte");
+
+
+const divWithClassExists = document.querySelectorAll(
+                            'div.Mini-7d'
+                           ).length > 0;
+
+if (divWithClassExists) {
+
+	var MiniCard = document.getElementById("Mini-7d");
+	MiniCard.parentNode.removeChild(MiniCard)
+}
+
+else {
+
+	if ( GOP3.style.display.match("block") && RESET.style.display.match("none") ) {
+	GOP3.style.display = "none";
+	StatContainer.style.display = "block";
+	StatTexte.style.display = "block";
+	RESET.style.display = "block";
+	
+	StatContainer.innerHTML += "<div class='mini-Red Mini-7d' id='Mini-7d' onclick='Show7d(); flip7d();' title='SUPPRIMER'><img class='Mini_Cards' src='Mini_Cards/7d.png'/></div>";
+	
+	var ButtonContainer = document.getElementById("Button-Container");
+	ButtonContainer.innerHTML = "<button id='RESET' class='RESET' onclick='RESET();' style='display:block;'>RESET</button>";
+	}
+	
+	else {
+	StatContainer.innerHTML += "<div class='mini-Red Mini-7d' id='Mini-7d' onclick='Show7d(); flip7d();' title='SUPPRIMER'><img class='Mini_Cards' src='Mini_Cards/7d.png'/></div>";
+
+	var ButtonContainer = document.getElementById("Button-Container");
+	ButtonContainer.innerHTML = "<button id='RESET' class='RESET' onclick='RESET();' style='display:block;'>RESET</button>";
+	}
+}
+
+};
+
+function Show8d() {
+
+	var GOP3 = document.getElementById("GOP3");
+	var StatContainer = document.getElementById("Stat-container");
+	var RESET = document.getElementById("RESET");
+	var StatTexte = document.getElementById("Stat-texte");
+
+
+const divWithClassExists = document.querySelectorAll(
+                            'div.Mini-8d'
+                           ).length > 0;
+
+if (divWithClassExists) {
+
+	var MiniCard = document.getElementById("Mini-8d");
+	MiniCard.parentNode.removeChild(MiniCard)
+}
+
+else {
+
+	if ( GOP3.style.display.match("block") && RESET.style.display.match("none") ) {
+	GOP3.style.display = "none";
+	StatContainer.style.display = "block";
+	StatTexte.style.display = "block";
+	RESET.style.display = "block";
+	
+	StatContainer.innerHTML += "<div class='mini-Red Mini-8d' id='Mini-8d' onclick='Show8d(); flip8d();' title='SUPPRIMER'><img class='Mini_Cards' src='Mini_Cards/8d.png'/></div>";
+	
+	var ButtonContainer = document.getElementById("Button-Container");
+	ButtonContainer.innerHTML = "<button id='RESET' class='RESET' onclick='RESET();' style='display:block;'>RESET</button>";
+	}
+	
+	else {
+	StatContainer.innerHTML += "<div class='mini-Red Mini-8d' id='Mini-8d' onclick='Show8d(); flip8d();' title='SUPPRIMER'><img class='Mini_Cards' src='Mini_Cards/8d.png'/></div>";
+
+	var ButtonContainer = document.getElementById("Button-Container");
+	ButtonContainer.innerHTML = "<button id='RESET' class='RESET' onclick='RESET();' style='display:block;'>RESET</button>";
+	}
+}
+
+};
+
+function Show9d() {
+
+	var GOP3 = document.getElementById("GOP3");
+	var StatContainer = document.getElementById("Stat-container");
+	var RESET = document.getElementById("RESET");
+	var StatTexte = document.getElementById("Stat-texte");
+
+
+const divWithClassExists = document.querySelectorAll(
+                            'div.Mini-9d'
+                           ).length > 0;
+
+if (divWithClassExists) {
+
+	var MiniCard = document.getElementById("Mini-9d");
+	MiniCard.parentNode.removeChild(MiniCard)
+}
+
+else {
+
+	if ( GOP3.style.display.match("block") && RESET.style.display.match("none") ) {
+	GOP3.style.display = "none";
+	StatContainer.style.display = "block";
+	StatTexte.style.display = "block";
+	RESET.style.display = "block";
+	
+	StatContainer.innerHTML += "<div class='mini-Red Mini-9d' id='Mini-9d' onclick='Show9d(); flip9d();' title='SUPPRIMER'><img class='Mini_Cards' src='Mini_Cards/9d.png'/></div>";
+	
+	var ButtonContainer = document.getElementById("Button-Container");
+	ButtonContainer.innerHTML = "<button id='RESET' class='RESET' onclick='RESET();' style='display:block;'>RESET</button>";
+	}
+	
+	else {
+	StatContainer.innerHTML += "<div class='mini-Red Mini-9d' id='Mini-9d' onclick='Show9d(); flip9d();' title='SUPPRIMER'><img class='Mini_Cards' src='Mini_Cards/9d.png'/></div>";
+
+	var ButtonContainer = document.getElementById("Button-Container");
+	ButtonContainer.innerHTML = "<button id='RESET' class='RESET' onclick='RESET();' style='display:block;'>RESET</button>";
+	}
+}
+
+};
+
+function ShowTd() {
+
+	var GOP3 = document.getElementById("GOP3");
+	var StatContainer = document.getElementById("Stat-container");
+	var RESET = document.getElementById("RESET");
+	var StatTexte = document.getElementById("Stat-texte");
+
+
+const divWithClassExists = document.querySelectorAll(
+                            'div.Mini-Td'
+                           ).length > 0;
+
+if (divWithClassExists) {
+
+	var MiniCard = document.getElementById("Mini-Td");
+	MiniCard.parentNode.removeChild(MiniCard)
+}
+
+else {
+
+	if ( GOP3.style.display.match("block") && RESET.style.display.match("none") ) {
+	GOP3.style.display = "none";
+	StatContainer.style.display = "block";
+	StatTexte.style.display = "block";
+	RESET.style.display = "block";
+	
+	StatContainer.innerHTML += "<div class='mini-Red Mini-Td' id='Mini-Td' onclick='ShowTd(); flipTd();' title='SUPPRIMER'><img class='Mini_Cards' src='Mini_Cards/Td.png'/></div>";
+	
+	var ButtonContainer = document.getElementById("Button-Container");
+	ButtonContainer.innerHTML = "<button id='RESET' class='RESET' onclick='RESET();' style='display:block;'>RESET</button>";
+	}
+	
+	else {
+	StatContainer.innerHTML += "<div class='mini-Red Mini-Td' id='Mini-Td' onclick='ShowTd(); flipTd();' title='SUPPRIMER'><img class='Mini_Cards' src='Mini_Cards/Td.png'/></div>";
+
+	var ButtonContainer = document.getElementById("Button-Container");
+	ButtonContainer.innerHTML = "<button id='RESET' class='RESET' onclick='RESET();' style='display:block;'>RESET</button>";
+	}
+}
+
+};
+
+function ShowJd() {
+
+	var GOP3 = document.getElementById("GOP3");
+	var StatContainer = document.getElementById("Stat-container");
+	var RESET = document.getElementById("RESET");
+	var StatTexte = document.getElementById("Stat-texte");
+
+
+const divWithClassExists = document.querySelectorAll(
+                            'div.Mini-Jd'
+                           ).length > 0;
+
+if (divWithClassExists) {
+
+	var MiniCard = document.getElementById("Mini-Jd");
+	MiniCard.parentNode.removeChild(MiniCard)
+}
+
+else {
+
+	if ( GOP3.style.display.match("block") && RESET.style.display.match("none") ) {
+	GOP3.style.display = "none";
+	StatContainer.style.display = "block";
+	StatTexte.style.display = "block";
+	RESET.style.display = "block";
+	
+	StatContainer.innerHTML += "<div class='mini-Red Mini-Jd' id='Mini-Jd' onclick='ShowJd(); flipJd();' title='SUPPRIMER'><img class='Mini_Cards' src='Mini_Cards/Jd.png'/></div>";
+	
+	var ButtonContainer = document.getElementById("Button-Container");
+	ButtonContainer.innerHTML = "<button id='RESET' class='RESET' onclick='RESET();' style='display:block;'>RESET</button>";
+	}
+	
+	else {
+	StatContainer.innerHTML += "<div class='mini-Red Mini-Jd' id='Mini-Jd' onclick='ShowJd(); flipJd();' title='SUPPRIMER'><img class='Mini_Cards' src='Mini_Cards/Jd.png'/></div>";
+
+	var ButtonContainer = document.getElementById("Button-Container");
+	ButtonContainer.innerHTML = "<button id='RESET' class='RESET' onclick='RESET();' style='display:block;'>RESET</button>";
+	}
+}
+
+};
+
+function ShowQd() {
+
+	var GOP3 = document.getElementById("GOP3");
+	var StatContainer = document.getElementById("Stat-container");
+	var RESET = document.getElementById("RESET");
+	var StatTexte = document.getElementById("Stat-texte");
+
+
+const divWithClassExists = document.querySelectorAll(
+                            'div.Mini-Qd'
+                           ).length > 0;
+
+if (divWithClassExists) {
+
+	var MiniCard = document.getElementById("Mini-Qd");
+	MiniCard.parentNode.removeChild(MiniCard)
+}
+
+else {
+
+	if ( GOP3.style.display.match("block") && RESET.style.display.match("none") ) {
+	GOP3.style.display = "none";
+	StatContainer.style.display = "block";
+	StatTexte.style.display = "block";
+	RESET.style.display = "block";
+	
+	StatContainer.innerHTML += "<div class='mini-Red Mini-Qd' id='Mini-Qd' onclick='ShowQd(); flipQd();' title='SUPPRIMER'><img class='Mini_Cards' src='Mini_Cards/Qd.png'/></div>";
+	
+	var ButtonContainer = document.getElementById("Button-Container");
+	ButtonContainer.innerHTML = "<button id='RESET' class='RESET' onclick='RESET();' style='display:block;'>RESET</button>";
+	}
+	
+	else {
+	StatContainer.innerHTML += "<div class='mini-Red Mini-Qd' id='Mini-Qd' onclick='ShowQd(); flipQd();' title='SUPPRIMER'><img class='Mini_Cards' src='Mini_Cards/Qd.png'/></div>";
+
+	var ButtonContainer = document.getElementById("Button-Container");
+	ButtonContainer.innerHTML = "<button id='RESET' class='RESET' onclick='RESET();' style='display:block;'>RESET</button>";
+	}
+}
+
+};
+
+function ShowKd() {
+
+	var GOP3 = document.getElementById("GOP3");
+	var StatContainer = document.getElementById("Stat-container");
+	var RESET = document.getElementById("RESET");
+	var StatTexte = document.getElementById("Stat-texte");
+
+
+const divWithClassExists = document.querySelectorAll(
+                            'div.Mini-Kd'
+                           ).length > 0;
+
+if (divWithClassExists) {
+
+	var MiniCard = document.getElementById("Mini-Kd");
+	MiniCard.parentNode.removeChild(MiniCard)
+}
+
+else {
+
+	if ( GOP3.style.display.match("block") && RESET.style.display.match("none") ) {
+	GOP3.style.display = "none";
+	StatContainer.style.display = "block";
+	StatTexte.style.display = "block";
+	RESET.style.display = "block";
+	
+	StatContainer.innerHTML += "<div class='mini-Red Mini-Kd' id='Mini-Kd' onclick='ShowKd(); flipKd();' title='SUPPRIME'><img class='Mini_Cards' src='Mini_Cards/Kd.png'/></div>";
+
+	var ButtonContainer = document.getElementById("Button-Container");
+	ButtonContainer.innerHTML = "<button id='RESET' class='RESET' onclick='RESET();' style='display:block;'>RESET</button>";
+	}
+	
+	else {
+	StatContainer.innerHTML += "<div class='mini-Red Mini-Kd' id='Mini-Kd' onclick='ShowKd(); flipKd();' title='SUPPRIME'><img class='Mini_Cards' src='Mini_Cards/Kd.png'/></div>";
+
+	var ButtonContainer = document.getElementById("Button-Container");
+	ButtonContainer.innerHTML = "<button id='RESET' class='RESET' onclick='RESET();' style='display:block;'>RESET</button>";
+	}
+}
+
+};
+
+function ShowAd() {
+
+	var GOP3 = document.getElementById("GOP3");
+	var StatContainer = document.getElementById("Stat-container");
+	var RESET = document.getElementById("RESET");
+	var StatTexte = document.getElementById("Stat-texte");
+
+
+const divWithClassExists = document.querySelectorAll(
+                            'div.Mini-Ad'
+                           ).length > 0;
+
+if (divWithClassExists) {
+
+	var MiniCard = document.getElementById("Mini-Ad");
+	MiniCard.parentNode.removeChild(MiniCard)
+}
+
+else {
+
+	if ( GOP3.style.display.match("block") && RESET.style.display.match("none") ) {
+	GOP3.style.display = "none";
+	StatContainer.style.display = "block";
+	StatTexte.style.display = "block";
+	RESET.style.display = "block";
+	
+	StatContainer.innerHTML += "<div class='mini-Red Mini-Ad' id='Mini-Ad' onclick='ShowAd(); flipAd();' title='SUPPRIMER'><img class='Mini_Cards' src='Mini_Cards/Ad.png'/></div>";
+	
+	var ButtonContainer = document.getElementById("Button-Container");
+	ButtonContainer.innerHTML = "<button id='RESET' class='RESET' onclick='RESET();' style='display:block;'>RESET</button>";
+	}
+	
+	else {
+	StatContainer.innerHTML += "<div class='mini-Red Mini-Ad' id='Mini-Ad' onclick='ShowAd(); flipAd();' title='SUPPRIMER'><img class='Mini_Cards' src='Mini_Cards/Ad.png'/></div>";
+
+	var ButtonContainer = document.getElementById("Button-Container");
+	ButtonContainer.innerHTML = "<button id='RESET' class='RESET' onclick='RESET();' style='display:block;'>RESET</button>";
+	}
+}
+
+};
+
+</script>
+
+
+<!-- *****************************************************************************	-->
+	
+
+	<!-- COULEUR A TREFLE	-->
+<div class="clubs-container">Clubs
+<div class="symbole"><img id="Symbole-TREFLE" src="Cards/Clubs.png"/></div></div>
+<div id="clubs-card">
+<div class="Card" id="2c" onclick="Show2c();" title="Two of club">
+<div class="flip-box">
+  <div class="flip-box-inner" id="Card2c" >
+    <div class="flip-box-front" >
+	<img class="SVG_Cards" src="Cards/2_of_clubs.svg"/>
+	</div>
+	<div class="flip-box-back GreenColor" >
+	<img class="Back_Card" src="Cards/back_Card_Red.png"/>
+	</div>
+  </div>
+</div>
+<script type="text/javascript">
+const Card2c = document.getElementById("Card2c");
+Card2c.addEventListener("click",flip2c);
+
+function flip2c() {
+  Card2c.classList.toggle("flipcard");
+};
+</script>
+</div>
+<div class="Card" id="3c" onclick="Show3c();" title="Three of club">
+<div class="flip-box">
+  <div class="flip-box-inner" id="Card3c" >
+    <div class="flip-box-front" >
+	<img class="SVG_Cards" src="Cards/3_of_clubs.svg"/>
+	</div>
+	<div class="flip-box-back GreenColor" >
+	<img class="Back_Card" src="Cards/back_Card_Red.png"/>
+	</div>
+  </div>
+</div>
+<script type="text/javascript">
+const Card3c = document.getElementById("Card3c");
+Card3c.addEventListener("click",flip3c);
+
+function flip3c() {
+  Card3c.classList.toggle("flipcard");
+};
+</script>
+</div>
+<div class="Card" id="4c" onclick="Show4c();" title="Four of club">
+<div class="flip-box">
+  <div class="flip-box-inner" id="Card4c" >
+    <div class="flip-box-front" >
+	<img class="SVG_Cards" src="Cards/4_of_clubs.svg"/>
+	</div>
+	<div class="flip-box-back GreenColor" >
+	<img class="Back_Card" src="Cards/back_Card_Red.png"/>
+	</div>
+  </div>
+</div>
+<script type="text/javascript">
+const Card4c = document.getElementById("Card4c");
+Card4c.addEventListener("click",flip4c);
+
+function flip4c() {
+  Card4c.classList.toggle("flipcard");
+};
+</script>
+</div>
+<div class="Card" id="5c" onclick="Show5c();" title="Five of club">
+<div class="flip-box">
+  <div class="flip-box-inner" id="Card5c" >
+    <div class="flip-box-front" >
+	<img class="SVG_Cards" src="Cards/5_of_clubs.svg"/>
+	</div>
+	<div class="flip-box-back GreenColor" >
+	<img class="Back_Card" src="Cards/back_Card_Red.png"/>
+	</div>
+  </div>
+</div>
+<script type="text/javascript">
+const Card5c = document.getElementById("Card5c");
+Card5c.addEventListener("click",flip5c);
+
+function flip5c() {
+  Card5c.classList.toggle("flipcard");
+};
+</script>
+</div>
+<div class="Card" id="6c" onclick="Show6c();" title="Six of club">
+<div class="flip-box">
+  <div class="flip-box-inner" id="Card6c" >
+    <div class="flip-box-front" >
+	<img class="SVG_Cards" src="Cards/6_of_clubs.svg"/>
+	</div>
+	<div class="flip-box-back GreenColor" >
+	<img class="Back_Card" src="Cards/back_Card_Red.png"/>
+	</div>
+  </div>
+</div>
+<script type="text/javascript">
+const Card6c = document.getElementById("Card6c");
+Card6c.addEventListener("click",flip6c);
+
+function flip6c() {
+  Card6c.classList.toggle("flipcard");
+};
+</script>
+</div>
+<div class="Card" id="7c" onclick="Show7c();" title="Seven of club">
+<div class="flip-box">
+  <div class="flip-box-inner" id="Card7c" >
+    <div class="flip-box-front" >
+	<img class="SVG_Cards" src="Cards/7_of_clubs.svg"/>
+	</div>
+	<div class="flip-box-back GreenColor" >
+	<img class="Back_Card" src="Cards/back_Card_Red.png"/>
+	</div>
+  </div>
+</div>
+<script type="text/javascript">
+const Card7c = document.getElementById("Card7c");
+Card7c.addEventListener("click",flip7c);
+
+function flip7c() {
+  Card7c.classList.toggle("flipcard");
+};
+</script>
+</div>             
+<div class="Card" id="8c" onclick="Show8c();" title="Eight of club">
+<div class="flip-box">
+  <div class="flip-box-inner" id="Card8c" >
+    <div class="flip-box-front" >
+	<img class="SVG_Cards" src="Cards/8_of_clubs.svg"/>
+	</div>
+	<div class="flip-box-back GreenColor" >
+	<img class="Back_Card" src="Cards/back_Card_Red.png"/>
+	</div>
+  </div>
+</div>
+<script type="text/javascript">
+const Card8c = document.getElementById("Card8c");
+Card8c.addEventListener("click",flip8c);
+
+function flip8c() {
+  Card8c.classList.toggle("flipcard");
+};
+</script>
+</div>            
+<div class="Card" id="9c" onclick="Show9c();" title="Nine of club">
+<div class="flip-box">
+  <div class="flip-box-inner" id="Card9c" >
+    <div class="flip-box-front" >
+	<img class="SVG_Cards" src="Cards/9_of_clubs.svg"/>
+	</div>
+	<div class="flip-box-back GreenColor" >
+	<img class="Back_Card" src="Cards/back_Card_Red.png"/>
+	</div>
+  </div>
+</div>
+<script type="text/javascript">
+const Card9c = document.getElementById("Card9c");
+Card9c.addEventListener("click",flip9c);
+
+function flip9c() {
+  Card9c.classList.toggle("flipcard");
+};
+</script>
+</div>
+<div class="Card" id="Tc" onclick="ShowTc();" title="Ten of club">
+<div class="flip-box">
+  <div class="flip-box-inner" id="CardTc" >
+    <div class="flip-box-front" >
+	<img class="SVG_Cards" src="Cards/10_of_clubs.svg"/>
+	</div>
+	<div class="flip-box-back GreenColor" >
+	<img class="Back_Card" src="Cards/back_Card_Red.png"/>
+	</div>
+  </div>
+</div>
+<script type="text/javascript">
+const CardTc = document.getElementById("CardTc");
+CardTc.addEventListener("click",flipTc);
+
+function flipTc() {
+  CardTc.classList.toggle("flipcard");
+};
+</script>
+</div>
+<div class="Card" id="Jc" onclick="ShowJc();" title="Jack of club">
+<div class="flip-box">
+  <div class="flip-box-inner" id="CardJc" >
+    <div class="flip-box-front" >
+	<img class="SVG_Cards" src="Cards/jack_of_clubs2.svg	"/>
+	</div>
+	<div class="flip-box-back GreenColor" >
+	<img class="Back_Card" src="Cards/back_Card_Red.png"/>
+	</div>
+  </div>
+</div>
+<script type="text/javascript">
+const CardJc = document.getElementById("CardJc");
+CardJc.addEventListener("click",flipJc);
+
+function flipJc() {
+  CardJc.classList.toggle("flipcard");
+};
+</script>
+</div>
+<div class="Card" id="Qc" onclick="ShowQc();" title="Queen of club">
+<div class="flip-box">
+  <div class="flip-box-inner" id="CardQc" >
+    <div class="flip-box-front" >
+	<img class="SVG_Cards" src="Cards/queen_of_clubs2.svg"/>
+	</div>
+	<div class="flip-box-back GreenColor" >
+	<img class="Back_Card" src="Cards/back_Card_Red.png"/>
+	</div>
+  </div>
+</div>
+<script type="text/javascript">
+const CardQc = document.getElementById("CardQc");
+CardQc.addEventListener("click",flipQc);
+
+function flipQc() {
+  CardQc.classList.toggle("flipcard");
+};
+</script>
+</div>
+<div class="Card" id="Kc" onclick="ShowKc();" title="King of club">
+<div class="flip-box">
+  <div class="flip-box-inner" id="CardKc" >
+    <div class="flip-box-front" >
+	<img class="SVG_Cards" src="Cards/king_of_clubs2.svg"/>
+	</div>
+	<div class="flip-box-back GreenColor" >
+	<img class="Back_Card" src="Cards/back_Card_Red.png"/>
+	</div>
+  </div>
+</div>
+<script type="text/javascript">
+const CardKc = document.getElementById("CardKc");
+CardKc.addEventListener("click",flipKc);
+
+function flipKc() {
+  CardKc.classList.toggle("flipcard");
+};
+</script>
+</div>
+<div class="Card" id="Ac" onclick="ShowAc();" title="Ace of club">
+<div class="flip-box">
+  <div class="flip-box-inner" id="CardAc" >
+    <div class="flip-box-front" >
+	<img class="SVG_Cards" src="Cards/ace_of_clubs.svg"/>
+	</div>
+	<div class="flip-box-back GreenColor" >
+	<img class="Back_Card" src="Cards/back_Card_Red.png"/>
+	</div>
+  </div>
+</div>
+<script type="text/javascript">
+const CardAc = document.getElementById("CardAc");
+CardAc.addEventListener("click",flipAc);
+
+function flipAc() {
+  CardAc.classList.toggle("flipcard");
+};
+</script>
+</div>
+<div id="Joker4" class="Card JokeRR4" onclick="scrollToBottomWithDelay(); sound(Gun);" title="Joker Noir">
+<img class="SVG_Cards" src="Cards/JOKER-1.svg"/>
+</div>
+
+<script> // Alterner la propriété overflow du body entre hidden et auto
+
+// ACTUELLEMENT PAS UTILISÉ. LA FONCTION ÉTAIT DANS LE "ONCLICK" DE ID=JOKER4
+
+        let isOverflowHidden = true;
+        const body = document.body;
+
+        function toggleOverflow() {
+            isOverflowHidden = !isOverflowHidden;
+            body.style.overflow = isOverflowHidden ? 'hidden' : 'auto';
+        }
+</script>
+
+<div class="MENU-A">
+<img class="SVG_Menu" src="Cards/Spades.png" title="Vers les spades" onclick="ShowSpades();" />
+<br>
+<img class="SVG_Menu" src="Cards/Diamonds.png" title="Vers les diamonds" onclick="ShowDiamonds();" />
+</div>
+<div class="MENU-B">
+<img class="SVG_Menu" src="Cards/Hearts.png" title="Vers les hearts" onclick="ShowHearts();" />
+<br>
+<img class="SVG_Menu" src="Cards/Clubs.png" title="Vers les clubs" onclick="ShowClubs();"/>
+</div>
+
+</div>
+
+
+<!-- *****************************************************************************	-->
+
+
+<div id="ArrivalT1" class="ArrivalT3" onclick="sound(Gun); ChangeBackground();">
+<img id="YouCoonCoin" src="Pic/BitGoLD.png"/>
+</div>
+
+<script type="text/javascript"> // Toggle entre les classes SpaceX et SpaceZ
+        function ChangeBackground() {
+            const targetDiv = document.getElementById('Space');
+            if (!targetDiv) return;
+
+            // Toggle entre les classes SpaceX et SpaceZ qui est la class cachée
+            if (targetDiv.classList.contains('SpaceX')) {
+                targetDiv.classList.remove('SpaceX');
+                targetDiv.classList.add('SpaceZ');
+            } else {
+                targetDiv.classList.remove('SpaceZ');
+                targetDiv.classList.add('SpaceX');
+            }
+        }
+
+</script>
+
+<!-- INTÉGRATION D'UN REPLAYER WINAMAX :
+<iframe id="myWinAmax"
+myWinAmaxIframe.style.display = "none";
+https://www.winamax.fr/replayer/replayer.html?2025-5ef87d98bf6b361feaad63a765b5e3fcad924a4605c302b15170b38fa39fb913&lang=fr_FR
+https://www.winamax.fr/replayer/replayer.html?2025-f1402eaf77aa931df4161855270c5a94b84ee84f4d90789431512d1c1e286a52&lang=fr_FR
+-->
+
+	<div>  <!-- REPLAYER WINAMAX -->
+        <iframe id="myWinAmax" autostart="false" data-src="https://www.winamax.fr/replayer/replayer.html?2025-f1402eaf77aa931df4161855270c5a94b84ee84f4d90789431512d1c1e286a52&lang=fr_FR" allowfullscreen></iframe>
+	</div>
+	
+	<div id="scrollTarget">  <!-- Cible sous le REPLAYER WINAMAX -->
+	</div>
+	
+	<div id="Space" class="SpaceX"></div>  <!-- Fond -->
+	
+	<div class="RetourAsvert" onclick="scrollToBottomWithDelay(); ShowClubs();" >
+	<img class="ASclub" src="Pic/ASclub.png" alt="Retour aux Trèfles" title="Retour aux Trèfles" />
+	</div>
+	
+
+<script type="text/javascript"> // Aller sur le player Winamax avec un délais
+        function scrollToBottomWithDelay() {
+            const myWinAmaxIframe = document.getElementById('myWinAmax');
+            const scrollTarget = document.getElementById('scrollTarget');
+            const clubsCard = document.getElementById('clubs-card');
+
+            if (!myWinAmaxIframe || !scrollTarget || !clubsCard) return;
+
+            // Toggle : afficher ou cacher l'iframe
+            const isVisible = myWinAmaxIframe.classList.contains('visible');
+            if (isVisible) {
+                myWinAmaxIframe.classList.remove('visible');
+                setTimeout(() => {
+                    clubsCard.scrollIntoView({ behavior: 'smooth', block: 'end' }); // Défile vers clubs-card quand invisible
+                }, 500); // Attendre la fin de la transition (0.5s)
+            } else {
+                // Charger l'URL seulement au premier affichage
+                if (!myWinAmaxIframe.src) {
+                    myWinAmaxIframe.src = myWinAmaxIframe.dataset.src;
+                }
+                myWinAmaxIframe.classList.add('visible');
+                setTimeout(() => {
+                    scrollTarget.scrollIntoView({ behavior: 'smooth', block: 'end' }); // Défile vers scrollTarget quand visible
+                }, 500); // Attendre la fin de la transition (0.5s)
+            }
+        }
+</script>
+
+
+	<div id="mySOUND"></div>
+
+
+<!-- *****************************************************************************	-->
+
+
+	<!-- Montrer les TREFLE	-->
+<script type="text/javascript">
+function Show2c() {
+
+	var GOP3 = document.getElementById("GOP3");
+	var StatContainer = document.getElementById("Stat-container");
+	var RESET = document.getElementById("RESET");
+	var StatTexte = document.getElementById("Stat-texte");
+
+
+const divWithClassExists = document.querySelectorAll(
+                            'div.Mini-2c'
+                           ).length > 0;
+
+if (divWithClassExists) {
+
+	var MiniCard = document.getElementById("Mini-2c");
+	MiniCard.parentNode.removeChild(MiniCard)
+}
+
+else {
+
+	if ( GOP3.style.display.match("block") && RESET.style.display.match("none") ) {
+	GOP3.style.display = "none";
+	StatContainer.style.display = "block";
+	StatTexte.style.display = "block";
+	RESET.style.display = "block";
+	
+	StatContainer.innerHTML += "<div class='mini-Black Mini-2c' id='Mini-2c' onclick='Show2c(); flip2c();' title='SUPPRIMER'><img class='Mini_Cards' src='Mini_Cards/2c.png'/></div>";
+	
+	var ButtonContainer = document.getElementById("Button-Container");
+	ButtonContainer.innerHTML = "<button id='RESET' class='RESET' onclick='RESET();' style='display:block;'>RESET</button>";
+	}
+	
+	else {
+	StatContainer.innerHTML += "<div class='mini-Black Mini-2c' id='Mini-2c' onclick='Show2c(); flip2c();' title='SUPPRIMER'><img class='Mini_Cards' src='Mini_Cards/2c.png'/></div>";
+
+	var ButtonContainer = document.getElementById("Button-Container");
+	ButtonContainer.innerHTML = "<button id='RESET' class='RESET' onclick='RESET();' style='display:block;'>RESET</button>";
+	}	
+}
+
+};
+
+function Show3c() {
+
+	var GOP3 = document.getElementById("GOP3");
+	var StatContainer = document.getElementById("Stat-container");
+	var RESET = document.getElementById("RESET");
+	var StatTexte = document.getElementById("Stat-texte");
+
+
+const divWithClassExists = document.querySelectorAll(
+                            'div.Mini-3c'
+                           ).length > 0;
+
+if (divWithClassExists) {
+
+	var MiniCard = document.getElementById("Mini-3c");
+	MiniCard.parentNode.removeChild(MiniCard)
+}
+
+else {
+
+	if ( GOP3.style.display.match("block") && RESET.style.display.match("none") ) {
+	GOP3.style.display = "none";
+	StatContainer.style.display = "block";
+	StatTexte.style.display = "block";
+	RESET.style.display = "block";
+	
+	StatContainer.innerHTML += "<div class='mini-Black Mini-3c' id='Mini-3c' onclick='Show3c(); flip3c();' title='SUPPRIMER'><img class='Mini_Cards' src='Mini_Cards/3c.png'/></div>";
+	
+	var ButtonContainer = document.getElementById("Button-Container");
+	ButtonContainer.innerHTML = "<button id='RESET' class='RESET' onclick='RESET();' style='display:block;'>RESET</button>";
+	}
+	
+	else {
+	StatContainer.innerHTML += "<div class='mini-Black Mini-3c' id='Mini-3c' onclick='Show3c(); flip3c();' title='SUPPRIMER'><img class='Mini_Cards' src='Mini_Cards/3c.png'/></div>";
+
+	var ButtonContainer = document.getElementById("Button-Container");
+	ButtonContainer.innerHTML = "<button id='RESET' class='RESET' onclick='RESET();' style='display:block;'>RESET</button>";
+	}
+}
+
+};
+
+function Show4c() {
+
+	var GOP3 = document.getElementById("GOP3");
+	var StatContainer = document.getElementById("Stat-container");
+	var RESET = document.getElementById("RESET");
+	var StatTexte = document.getElementById("Stat-texte");
+
+
+const divWithClassExists = document.querySelectorAll(
+                            'div.Mini-4c'
+                           ).length > 0;
+
+if (divWithClassExists) {
+
+	var MiniCard = document.getElementById("Mini-4c");
+	MiniCard.parentNode.removeChild(MiniCard)
+}
+
+else {
+
+	if ( GOP3.style.display.match("block") && RESET.style.display.match("none") ) {
+	GOP3.style.display = "none";
+	StatContainer.style.display = "block";
+	StatTexte.style.display = "block";
+	RESET.style.display = "block";
+	
+	StatContainer.innerHTML += "<div class='mini-Black Mini-4c' id='Mini-4c' onclick='Show4c(); flip4c();' title='SUPPRIMER'><img class='Mini_Cards' src='Mini_Cards/4c.png'/></div>";
+	
+	var ButtonContainer = document.getElementById("Button-Container");
+	ButtonContainer.innerHTML = "<button id='RESET' class='RESET' onclick='RESET();' style='display:block;'>RESET</button>";
+	}
+	
+	else {
+	StatContainer.innerHTML += "<div class='mini-Black Mini-4c' id='Mini-4c' onclick='Show4c(); flip4c();' title='SUPPRIMER'><img class='Mini_Cards' src='Mini_Cards/4c.png'/></div>";
+
+	var ButtonContainer = document.getElementById("Button-Container");
+	ButtonContainer.innerHTML = "<button id='RESET' class='RESET' onclick='RESET();' style='display:block;'>RESET</button>";
+	}
+}
+
+};
+
+function Show5c() {
+
+	var GOP3 = document.getElementById("GOP3");
+	var StatContainer = document.getElementById("Stat-container");
+	var RESET = document.getElementById("RESET");
+	var StatTexte = document.getElementById("Stat-texte");
+
+
+const divWithClassExists = document.querySelectorAll(
+                            'div.Mini-5c'
+                           ).length > 0;
+
+if (divWithClassExists) {
+
+	var MiniCard = document.getElementById("Mini-5c");
+	MiniCard.parentNode.removeChild(MiniCard)
+}
+
+else {
+
+	if ( GOP3.style.display.match("block") && RESET.style.display.match("none") ) {
+	GOP3.style.display = "none";
+	StatContainer.style.display = "block";
+	StatTexte.style.display = "block";
+	RESET.style.display = "block";
+	
+	StatContainer.innerHTML += "<div class='mini-Black Mini-5c' id='Mini-5c' onclick='Show5c(); flip5c();' title='SUPPRIMER'><img class='Mini_Cards' src='Mini_Cards/5c.png'/></div>";
+	
+	var ButtonContainer = document.getElementById("Button-Container");
+	ButtonContainer.innerHTML = "<button id='RESET' class='RESET' onclick='RESET();' style='display:block;'>RESET</button>";
+	}
+	
+	else {
+	StatContainer.innerHTML += "<div class='mini-Black Mini-5c' id='Mini-5c' onclick='Show5c(); flip5c();' title='SUPPRIMER'><img class='Mini_Cards' src='Mini_Cards/5c.png'/></div>";
+
+	var ButtonContainer = document.getElementById("Button-Container");
+	ButtonContainer.innerHTML = "<button id='RESET' class='RESET' onclick='RESET();' style='display:block;'>RESET</button>";
+	}
+}
+
+};
+
+function Show6c() {
+
+	var GOP3 = document.getElementById("GOP3");
+	var StatContainer = document.getElementById("Stat-container");
+	var RESET = document.getElementById("RESET");
+	var StatTexte = document.getElementById("Stat-texte");
+
+
+const divWithClassExists = document.querySelectorAll(
+                            'div.Mini-6c'
+                           ).length > 0;
+
+if (divWithClassExists) {
+
+	var MiniCard = document.getElementById("Mini-6c");
+	MiniCard.parentNode.removeChild(MiniCard)
+}
+
+else {
+
+	if ( GOP3.style.display.match("block") && RESET.style.display.match("none") ) {
+	GOP3.style.display = "none";
+	StatContainer.style.display = "block";
+	StatTexte.style.display = "block";
+	RESET.style.display = "block";
+	
+	StatContainer.innerHTML += "<div class='mini-Black Mini-6c' id='Mini-6c' onclick='Show6c(); flip6c();' title='SUPPRIMER'><img class='Mini_Cards' src='Mini_Cards/6c.png'/></div>";
+	
+	var ButtonContainer = document.getElementById("Button-Container");
+	ButtonContainer.innerHTML = "<button id='RESET' class='RESET' onclick='RESET();' style='display:block;'>RESET</button>";
+	}
+	
+	else {
+	StatContainer.innerHTML += "<div class='mini-Black Mini-6c' id='Mini-6c' onclick='Show6c(); flip6c();' title='SUPPRIMER'><img class='Mini_Cards' src='Mini_Cards/6c.png'/></div>";
+
+	var ButtonContainer = document.getElementById("Button-Container");
+	ButtonContainer.innerHTML = "<button id='RESET' class='RESET' onclick='RESET();' style='display:block;'>RESET</button>";
+	}
+}
+
+};
+
+function Show7c() {
+
+	var GOP3 = document.getElementById("GOP3");
+	var StatContainer = document.getElementById("Stat-container");
+	var RESET = document.getElementById("RESET");
+	var StatTexte = document.getElementById("Stat-texte");
+
+
+const divWithClassExists = document.querySelectorAll(
+                            'div.Mini-7c'
+                           ).length > 0;
+
+if (divWithClassExists) {
+
+	var MiniCard = document.getElementById("Mini-7c");
+	MiniCard.parentNode.removeChild(MiniCard)
+}
+
+else {
+
+	if ( GOP3.style.display.match("block") && RESET.style.display.match("none") ) {
+	GOP3.style.display = "none";
+	StatContainer.style.display = "block";
+	StatTexte.style.display = "block";
+	RESET.style.display = "block";
+	
+	StatContainer.innerHTML += "<div class='mini-Black Mini-7c' id='Mini-7c' onclick='Show7c(); flip7c();' title='SUPPRIMER'><img class='Mini_Cards' src='Mini_Cards/7c.png'/></div>";
+	
+	var ButtonContainer = document.getElementById("Button-Container");
+	ButtonContainer.innerHTML = "<button id='RESET' class='RESET' onclick='RESET();' style='display:block;'>RESET</button>";
+	}
+	
+	else {
+	StatContainer.innerHTML += "<div class='mini-Black Mini-7c' id='Mini-7c' onclick='Show7c(); flip7c();' title='SUPPRIMER'><img class='Mini_Cards' src='Mini_Cards/7c.png'/></div>";
+
+	var ButtonContainer = document.getElementById("Button-Container");
+	ButtonContainer.innerHTML = "<button id='RESET' class='RESET' onclick='RESET();' style='display:block;'>RESET</button>";
+	}
+}
+
+};
+
+function Show8c() {
+
+	var GOP3 = document.getElementById("GOP3");
+	var StatContainer = document.getElementById("Stat-container");
+	var RESET = document.getElementById("RESET");
+	var StatTexte = document.getElementById("Stat-texte");
+
+
+const divWithClassExists = document.querySelectorAll(
+                            'div.Mini-8c'
+                           ).length > 0;
+
+if (divWithClassExists) {
+
+	var MiniCard = document.getElementById("Mini-8c");
+	MiniCard.parentNode.removeChild(MiniCard)
+}
+
+else {
+
+	if ( GOP3.style.display.match("block") && RESET.style.display.match("none") ) {
+	GOP3.style.display = "none";
+	StatContainer.style.display = "block";
+	StatTexte.style.display = "block";
+	RESET.style.display = "block";
+	
+	StatContainer.innerHTML += "<div class='mini-Black Mini-8c' id='Mini-8c' onclick='Show8c(); flip8c();' title='SUPPRIMER'><img class='Mini_Cards' src='Mini_Cards/8c.png'/></div>";
+	
+	var ButtonContainer = document.getElementById("Button-Container");
+	ButtonContainer.innerHTML = "<button id='RESET' class='RESET' onclick='RESET();' style='display:block;'>RESET</button>";
+	}
+	
+	else {
+	StatContainer.innerHTML += "<div class='mini-Black Mini-8c' id='Mini-8c' onclick='Show8c(); flip8c();' title='SUPPRIMER'><img class='Mini_Cards' src='Mini_Cards/8c.png'/></div>";
+
+	var ButtonContainer = document.getElementById("Button-Container");
+	ButtonContainer.innerHTML = "<button id='RESET' class='RESET' onclick='RESET();' style='display:block;'>RESET</button>";
+	}
+}
+
+};
+
+function Show9c() {
+
+	var GOP3 = document.getElementById("GOP3");
+	var StatContainer = document.getElementById("Stat-container");
+	var RESET = document.getElementById("RESET");
+	var StatTexte = document.getElementById("Stat-texte");
+
+
+const divWithClassExists = document.querySelectorAll(
+                            'div.Mini-9c'
+                           ).length > 0;
+
+if (divWithClassExists) {
+
+	var MiniCard = document.getElementById("Mini-9c");
+	MiniCard.parentNode.removeChild(MiniCard)
+}
+
+else {
+
+	if ( GOP3.style.display.match("block") && RESET.style.display.match("none") ) {
+	GOP3.style.display = "none";
+	StatContainer.style.display = "block";
+	StatTexte.style.display = "block";
+	RESET.style.display = "block";
+	
+	StatContainer.innerHTML += "<div class='mini-Black Mini-9c' id='Mini-9c' onclick='Show9c(); flip9c();' title='SUPPRIMER'><img class='Mini_Cards' src='Mini_Cards/9c.png'/></div>";
+	
+	var ButtonContainer = document.getElementById("Button-Container");
+	ButtonContainer.innerHTML = "<button id='RESET' class='RESET' onclick='RESET();' style='display:block;'>RESET</button>";
+	}
+	
+	else {
+	StatContainer.innerHTML += "<div class='mini-Black Mini-9c' id='Mini-9c' onclick='Show9c(); flip9c();' title='SUPPRIMER'><img class='Mini_Cards' src='Mini_Cards/9c.png'/></div>";
+
+	var ButtonContainer = document.getElementById("Button-Container");
+	ButtonContainer.innerHTML = "<button id='RESET' class='RESET' onclick='RESET();' style='display:block;'>RESET</button>";
+	}
+}
+
+};
+
+function ShowTc() {
+
+	var GOP3 = document.getElementById("GOP3");
+	var StatContainer = document.getElementById("Stat-container");
+	var RESET = document.getElementById("RESET");
+	var StatTexte = document.getElementById("Stat-texte");
+
+
+const divWithClassExists = document.querySelectorAll(
+                            'div.Mini-Tc'
+                           ).length > 0;
+
+if (divWithClassExists) {
+
+	var MiniCard = document.getElementById("Mini-Tc");
+	MiniCard.parentNode.removeChild(MiniCard)
+}
+
+else {
+
+	if ( GOP3.style.display.match("block") && RESET.style.display.match("none") ) {
+	GOP3.style.display = "none";
+	StatContainer.style.display = "block";
+	StatTexte.style.display = "block";
+	RESET.style.display = "block";
+	
+	StatContainer.innerHTML += "<div class='mini-Black Mini-Tc' id='Mini-Tc' onclick='ShowTc(); flipTc();' title='SUPPRIMER'><img class='Mini_Cards' src='Mini_Cards/Tc.png'/></div>";
+	
+	var ButtonContainer = document.getElementById("Button-Container");
+	ButtonContainer.innerHTML = "<button id='RESET' class='RESET' onclick='RESET();' style='display:block;'>RESET</button>";
+	}
+	
+	else {
+	StatContainer.innerHTML += "<div class='mini-Black Mini-Tc' id='Mini-Tc' onclick='ShowTc(); flipTc();' title='SUPPRIMER'><img class='Mini_Cards' src='Mini_Cards/Tc.png'/></div>";
+
+	var ButtonContainer = document.getElementById("Button-Container");
+	ButtonContainer.innerHTML = "<button id='RESET' class='RESET' onclick='RESET();' style='display:block;'>RESET</button>";
+	}
+}
+
+};
+
+function ShowJc() {
+
+	var GOP3 = document.getElementById("GOP3");
+	var StatContainer = document.getElementById("Stat-container");
+	var RESET = document.getElementById("RESET");
+	var StatTexte = document.getElementById("Stat-texte");
+
+
+const divWithClassExists = document.querySelectorAll(
+                            'div.Mini-Jc'
+                           ).length > 0;
+
+if (divWithClassExists) {
+
+	var MiniCard = document.getElementById("Mini-Jc");
+	MiniCard.parentNode.removeChild(MiniCard)
+}
+
+else {
+
+	if ( GOP3.style.display.match("block") && RESET.style.display.match("none") ) {
+	GOP3.style.display = "none";
+	StatContainer.style.display = "block";
+	StatTexte.style.display = "block";
+	RESET.style.display = "block";
+	
+	StatContainer.innerHTML += "<div class='mini-Black Mini-Jc' id='Mini-Jc' onclick='ShowJc(); flipJc();' title='SUPPRIMER'><img class='Mini_Cards' src='Mini_Cards/Jc.png'/></div>";
+	
+	var ButtonContainer = document.getElementById("Button-Container");
+	ButtonContainer.innerHTML = "<button id='RESET' class='RESET' onclick='RESET();' style='display:block;'>RESET</button>";
+	}
+	
+	else {
+	StatContainer.innerHTML += "<div class='mini-Black Mini-Jc' id='Mini-Jc' onclick='ShowJc(); flipJc();' title='SUPPRIMER'><img class='Mini_Cards' src='Mini_Cards/Jc.png'/></div>";
+
+	var ButtonContainer = document.getElementById("Button-Container");
+	ButtonContainer.innerHTML = "<button id='RESET' class='RESET' onclick='RESET();' style='display:block;'>RESET</button>";
+	}
+}
+
+};
+
+function ShowQc() {
+
+	var GOP3 = document.getElementById("GOP3");
+	var StatContainer = document.getElementById("Stat-container");
+	var RESET = document.getElementById("RESET");
+	var StatTexte = document.getElementById("Stat-texte");
+
+
+const divWithClassExists = document.querySelectorAll(
+                            'div.Mini-Qc'
+                           ).length > 0;
+
+if (divWithClassExists) {
+
+	var MiniCard = document.getElementById("Mini-Qc");
+	MiniCard.parentNode.removeChild(MiniCard)
+}
+
+else {
+
+	if ( GOP3.style.display.match("block") && RESET.style.display.match("none") ) {
+	GOP3.style.display = "none";
+	StatContainer.style.display = "block";
+	StatTexte.style.display = "block";
+	RESET.style.display = "block";
+	
+	StatContainer.innerHTML += "<div class='mini-Black Mini-Qc' id='Mini-Qc' onclick='ShowQc(); flipQc();' title='SUPPRIMER'><img class='Mini_Cards' src='Mini_Cards/Qc.png'/></div>";
+	
+	var ButtonContainer = document.getElementById("Button-Container");
+	ButtonContainer.innerHTML = "<button id='RESET' class='RESET' onclick='RESET();' style='display:block;'>RESET</button>";
+	}
+	
+	else {
+	StatContainer.innerHTML += "<div class='mini-Black Mini-Qc' id='Mini-Qc' onclick='ShowQc(); flipQc();' title='SUPPRIMER'><img class='Mini_Cards' src='Mini_Cards/Qc.png'/></div>";
+
+	var ButtonContainer = document.getElementById("Button-Container");
+	ButtonContainer.innerHTML = "<button id='RESET' class='RESET' onclick='RESET();' style='display:block;'>RESET</button>";
+	}
+}
+
+};
+
+function ShowKc() {
+
+	var GOP3 = document.getElementById("GOP3");
+	var StatContainer = document.getElementById("Stat-container");
+	var RESET = document.getElementById("RESET");
+	var StatTexte = document.getElementById("Stat-texte");
+
+
+const divWithClassExists = document.querySelectorAll(
+                            'div.Mini-Kc'
+                           ).length > 0;
+
+if (divWithClassExists) {
+
+	var MiniCard = document.getElementById("Mini-Kc");
+	MiniCard.parentNode.removeChild(MiniCard)
+}
+
+else {
+
+	if ( GOP3.style.display.match("block") && RESET.style.display.match("none") ) {
+	GOP3.style.display = "none";
+	StatContainer.style.display = "block";
+	StatTexte.style.display = "block";
+	RESET.style.display = "block";
+	
+	StatContainer.innerHTML += "<div class='mini-Black Mini-Kc' id='Mini-Kc' onclick='ShowKc(); flipKc();' title='SUPPRIMER'><img class='Mini_Cards' src='Mini_Cards/Kc.png'/></div>";
+	
+	var ButtonContainer = document.getElementById("Button-Container");
+	ButtonContainer.innerHTML = "<button id='RESET' class='RESET' onclick='RESET();' style='display:block;'>RESET</button>";
+	}
+	
+	else {
+	StatContainer.innerHTML += "<div class='mini-Black Mini-Kc' id='Mini-Kc' onclick='ShowKc(); flipKc();' title='SUPPRIMER'><img class='Mini_Cards' src='Mini_Cards/Kc.png'/></div>";
+
+	var ButtonContainer = document.getElementById("Button-Container");
+	ButtonContainer.innerHTML = "<button id='RESET' class='RESET' onclick='RESET();' style='display:block;'>RESET</button>";
+	}
+}
+
+};
+
+function ShowAc() {
+
+	var GOP3 = document.getElementById("GOP3");
+	var StatContainer = document.getElementById("Stat-container");
+	var RESET = document.getElementById("RESET");
+	var StatTexte = document.getElementById("Stat-texte");
+
+
+const divWithClassExists = document.querySelectorAll(
+                            'div.Mini-Ac'
+                           ).length > 0;
+
+if (divWithClassExists) {
+
+	var MiniCard = document.getElementById("Mini-Ac");
+	MiniCard.parentNode.removeChild(MiniCard)
+}
+
+else {
+
+	if ( GOP3.style.display.match("block") && RESET.style.display.match("none") ) {
+	GOP3.style.display = "none";
+	StatContainer.style.display = "block";
+	StatTexte.style.display = "block";
+	RESET.style.display = "block";
+	
+	StatContainer.innerHTML += "<div class='mini-Black Mini-Ac' id='Mini-Ac' onclick='ShowAc(); flipAc();' title='SUPPRIMER'><img class='Mini_Cards' src='Mini_Cards/Ac.png'/></div>";
+	
+	var ButtonContainer = document.getElementById("Button-Container");
+	ButtonContainer.innerHTML = "<button id='RESET' class='RESET' onclick='RESET();' style='display:block;'>RESET</button>";
+	}
+	
+	else {
+	StatContainer.innerHTML += "<div class='mini-Black Mini-Ac' id='Mini-Ac' onclick='ShowAc(); flipAc();' title='SUPPRIMER'><img class='Mini_Cards' src='Mini_Cards/Ac.png'/></div>";
+
+	var ButtonContainer = document.getElementById("Button-Container");
+	ButtonContainer.innerHTML = "<button id='RESET' class='RESET' onclick='RESET();' style='display:block;'>RESET</button>";
+	}
+}
+
+};
+
+</script>
+
+
+<!-- *****************************************************************************	-->
+
+	<!--	MENU VERS LES 4 FLUSH	-->
+<script type="text/javascript">
+function ShowHearts() {
+	var AB = document.getElementById("hearts-card");
+	AB.scrollIntoView({ behavior: "smooth", block: "end" });
+};
+
+function ShowDiamonds() {
+	var CD = document.getElementById("diamonds-card");
+	CD.scrollIntoView({ behavior: "smooth", block: "end" });
+};
+
+function ShowClubs() {
+	var EF = document.getElementById("clubs-card");
+	EF.scrollIntoView({ behavior: "smooth", block: "end" });
+};
+
+function ShowSpades() {
+	var GH = document.getElementById("spades-card");
+	GH.scrollIntoView({ behavior: "smooth", block: "end" });
+};
+
+</script>
+
+</div>
+
+</body>
+</html>
